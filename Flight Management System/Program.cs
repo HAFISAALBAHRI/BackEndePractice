@@ -76,9 +76,10 @@ namespace Flight_Management_System
             int totalSeats;
             Console.Write("Enter total seats: ");
 
-            while (!int.TryParse(Console.ReadLine(), out totalSeats) || totalSeats <= 0)
+            if (!int.TryParse(Console.ReadLine(), out totalSeats) || totalSeats < 50)
             {
-                Console.WriteLine("Invalid number.");
+                Console.Write("Invalid number. Seats must be 50 or more: ");
+                return;
             }
             int aircraftId = context.Aircrafts.Count + 1;
 
