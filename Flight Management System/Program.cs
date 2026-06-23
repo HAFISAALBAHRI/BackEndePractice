@@ -49,8 +49,7 @@ namespace Flight_Management_System
             Console.WriteLine($"Passenger registered successfully. Assigned ID: {passengerId}");
         }
 
-        static void Main(string[] args)
-        {
+       
             static void Main(string[] args)
             {
                 bool exit = false;
@@ -79,7 +78,7 @@ namespace Flight_Management_System
 
                     switch (option)
                     {
-                        //case 1: RegisterPassenger(); break;
+                        case 1: RegisterPassenger(); break;
                         //case 2: AddAircraft(); break;
                         //case 3: RegisterPilot(); break;
                         //case 4: ViewAllFlights(); break;
@@ -106,4 +105,4 @@ namespace Flight_Management_System
             }
         }
     }
-}
+
