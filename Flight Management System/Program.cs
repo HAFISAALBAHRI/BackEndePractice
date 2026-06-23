@@ -156,7 +156,7 @@ namespace Flight_Management_System
         {
             Console.WriteLine("\n=== Schedule Flight ===");
 
-            foreach (Aircraft a in context.Aircrafts)
+            foreach (Aircraft a in context.Aircrafts) //Show All Aircrafts
             {
                 Console.WriteLine($"ID: {a.aircraftId} | Model: {a.model} | Seats: {a.totalSeats}");
             }
@@ -164,16 +164,16 @@ namespace Flight_Management_System
             Console.Write("Enter Aircraft ID: ");
             int aircraftId = int.Parse(Console.ReadLine());
 
-            Aircraft aircraft = context.Aircrafts
+            Aircraft aircraft = context.Aircrafts  //Find Selected Aircraft
                                 .FirstOrDefault(a => a.aircraftId == aircraftId);
 
-            if (aircraft == null)
+            if (aircraft == null) //Check If Aircraft Exists
             {
                 Console.WriteLine("Aircraft not found.");
                 return;
             }
 
-            foreach (Pilot p in context.Pilots)
+            foreach (Pilot p in context.Pilots) //Show All Pilots
             {
                 Console.WriteLine($"ID: {p.pilotId} | Name: {p.pilotName}");
             }
@@ -181,10 +181,10 @@ namespace Flight_Management_System
             Console.Write("Enter Pilot ID: ");
             int pilotId = int.Parse(Console.ReadLine());
 
-            Pilot pilot = context.Pilots
+            Pilot pilot = context.Pilots //Find Selected Pilot
                           .FirstOrDefault(p => p.pilotId == pilotId);
 
-            if (pilot == null)
+            if (pilot == null) //Check If Pilot Exists
             {
                 Console.WriteLine("Pilot not found.");
                 return;
@@ -210,7 +210,7 @@ namespace Flight_Management_System
             context.Flights.Add(new Flight
             {
                 flightId = flightId,
-                flightCode = "OA-" + flightId,
+                flightCode = "OA-" + flightId, //Creates flight code automatically.
                 aircraftId = aircraftId,
                 pilotId = pilotId,
                 origin = origin,
