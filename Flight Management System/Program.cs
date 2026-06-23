@@ -1,7 +1,18 @@
-﻿namespace Flight_Management_System
+﻿using Flight_Management_System.Models;
+
+namespace Flight_Management_System
 {
-    internal class Program
+ public class Program
     {
+        public static FlightContext context = new FlightContext
+        {
+            Passengers = new List<Passenger>(),
+            Pilots = new List<Pilot>(),
+            Aircrafts = new List<Aircraft>(),
+            Flights = new List<Flight>(),
+            Bookings = new List<Booking>()
+        };
+
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
