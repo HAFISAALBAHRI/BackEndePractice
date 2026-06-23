@@ -126,6 +126,23 @@ namespace Flight_Management_System
 
             Console.WriteLine($"Pilot registered successfully. Assigned ID: {pilotId}");
         }
+
+        public static void ViewAllFlights()
+        {
+            Console.WriteLine("=== All Flights ===");
+
+            foreach (Flight f in context.Flights)
+            {
+                Console.WriteLine($"Flight Code: {f.flightCode}" +
+                                  $" | Origin: {f.origin}" +
+                                  $" | Destination: {f.destination}" +
+                                  $" | Date: {f.departureDate}" +
+                                  $" | Time: {f.departureTime}" +
+                                  $" | Available Seats: {f.availableSeats}" +
+                                  $" | Ticket Price: {f.ticketPrice}" +
+                                  $" | Status: {f.status}");
+            }
+        }
         static void Main(string[] args)
             {
                 bool exit = false;
@@ -156,8 +173,8 @@ namespace Flight_Management_System
                     {
                         case 1: RegisterPassenger(); break;
                         case 2: AddAircraft(); break;
-                    //case 3: RegisterPilot(); break;
-                    //case 4: ViewAllFlights(); break;
+                        case 3: RegisterPilot(); break;
+                        case 4: ViewAllFlights(); break;
                     //case 5: ScheduleFlight(); break;
                     //case 6: BookFlight(); break;
                     //case 7: CancelBooking(); break;
