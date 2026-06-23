@@ -13,6 +13,42 @@ namespace Flight_Management_System
             Bookings = new List<Booking>()
         };
 
+        public static void RegisterPassenger()
+        {
+            Console.WriteLine("=== Register New Passenger ===");
+
+            Console.Write("Enter passenger name: ");
+            string name = Console.ReadLine();
+
+            Console.Write("Enter passenger email: ");
+            string email = Console.ReadLine();
+
+            Console.Write("Enter passenger phone: ");
+            string phone = Console.ReadLine();
+
+            Console.Write("Enter passport number: ");
+            string passportNumber = Console.ReadLine();
+
+            Console.Write("Enter nationality: ");
+            string nationality = Console.ReadLine();
+
+            int passengerId = context.Passengers.Count + 1;
+
+            context.Passengers.Add(
+                new Passenger
+                {
+                    passengerId = passengerId,
+                    passengerName = name,
+                    passengerEmail = email,
+                    passengerPhone = phone,
+                    passportNumber = passportNumber,
+                    nationality = nationality
+                }
+            );
+
+            Console.WriteLine($"Passenger registered successfully. Assigned ID: {passengerId}");
+        }
+
         static void Main(string[] args)
         {
             static void Main(string[] args)
@@ -21,7 +57,7 @@ namespace Flight_Management_System
 
                 while (exit == false)
                 {
-                    Console.WriteLine("\n========================================");
+                    Console.WriteLine("========================================");
                     Console.WriteLine("      Flight Management System");
                     Console.WriteLine("========================================");
                     Console.WriteLine(" 1  - Register Passenger");
