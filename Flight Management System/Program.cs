@@ -156,7 +156,7 @@ namespace Flight_Management_System
         {
             Console.WriteLine("\n=== Schedule Flight ===");
 
-            foreach (Aircraft a in context.Aircrafts) //Show All Aircrafts
+            foreach (Aircraft a in context.Aircrafts)
             {
                 Console.WriteLine($"ID: {a.aircraftId} | Model: {a.model} | Seats: {a.totalSeats}");
             }
@@ -164,16 +164,16 @@ namespace Flight_Management_System
             Console.Write("Enter Aircraft ID: ");
             int aircraftId = int.Parse(Console.ReadLine());
 
-            Aircraft aircraft = context.Aircrafts  //Find Selected Aircraft
-                                .FirstOrDefault(a => a.aircraftId == aircraftId);
+            Aircraft aircraft = context.Aircrafts
+                .FirstOrDefault(a => a.aircraftId == aircraftId);
 
-            if (aircraft == null) //Check If Aircraft Exists
+            if (aircraft == null)
             {
                 Console.WriteLine("Aircraft not found.");
                 return;
             }
 
-            foreach (Pilot p in context.Pilots) //Show All Pilots
+            foreach (Pilot p in context.Pilots)
             {
                 Console.WriteLine($"ID: {p.pilotId} | Name: {p.pilotName}");
             }
@@ -181,10 +181,10 @@ namespace Flight_Management_System
             Console.Write("Enter Pilot ID: ");
             int pilotId = int.Parse(Console.ReadLine());
 
-            Pilot pilot = context.Pilots //Find Selected Pilot
-                          .FirstOrDefault(p => p.pilotId == pilotId);
+            Pilot pilot = context.Pilots
+                .FirstOrDefault(p => p.pilotId == pilotId);
 
-            if (pilot == null) //Check If Pilot Exists
+            if (pilot == null)
             {
                 Console.WriteLine("Pilot not found.");
                 return;
@@ -196,11 +196,25 @@ namespace Flight_Management_System
             Console.Write("Enter Destination: ");
             string destination = Console.ReadLine();
 
-            Console.Write("Enter Departure Date: ");
-            string date = Console.ReadLine();
+            DateTime d;
+            Console.Write("Enter Departure Date (dd/MM/yyyy): ");
 
-            Console.Write("Enter Departure Time: ");
-            string time = Console.ReadLine();
+            while (!DateTime.TryParse(Console.ReadLine(), out d))
+            {
+                Console.Write("Invalid Date. Enter again: ");
+            }
+
+            string departureDate = d.ToString("dd/MM/yyyy");
+
+            DateTime t;
+            Console.Write("Enter Departure Time (HH:mm): ");
+
+            while (!DateTime.TryParse(Console.ReadLine(), out t))
+            {
+                Console.Write("Invalid Time. Enter again: ");
+            }
+
+            string departureTime = t.ToString("HH:mm");
 
             Console.Write("Enter Ticket Price: ");
             decimal price = decimal.Parse(Console.ReadLine());
@@ -210,13 +224,13 @@ namespace Flight_Management_System
             context.Flights.Add(new Flight
             {
                 flightId = flightId,
-                flightCode = "OA-" + flightId, //Creates flight code automatically.
+                flightCode = "OA-" + flightId,
                 aircraftId = aircraftId,
                 pilotId = pilotId,
                 origin = origin,
                 destination = destination,
-                departureDate = date,
-                departureTime = time,
+                departureDate = departureDate,
+                departureTime = departureTime,
                 ticketPrice = price,
                 availableSeats = aircraft.totalSeats,
                 status = "Scheduled"
