@@ -143,6 +143,89 @@ namespace Flight_Management_System
                                   $" | Status: {f.status}");
             }
         }
+
+        /*
+        in case 5 Automatically generated values
+        flightId = context.Flights.Count + 1;
+        flightCode = "OA-" + flightId;
+        availableSeats = aircraft.totalSeats;
+        status = "Scheduled";
+        pilot.isAvailable = false;
+        */
+        public static void ScheduleFlight()
+        {
+            Console.WriteLine("\n=== Schedule Flight ===");
+
+            foreach (Aircraft a in context.Aircrafts)
+            {
+                Console.WriteLine($"ID: {a.aircraftId} | Model: {a.model} | Seats: {a.totalSeats}");
+            }
+
+            Console.Write("Enter Aircraft ID: ");
+            int aircraftId = int.Parse(Console.ReadLine());
+
+            Aircraft aircraft = context.Aircrafts
+                                .FirstOrDefault(a => a.aircraftId == aircraftId);
+
+            if (aircraft == null)
+            {
+                Console.WriteLine("Aircraft not found.");
+                return;
+            }
+
+            foreach (Pilot p in context.Pilots)
+            {
+                Console.WriteLine($"ID: {p.pilotId} | Name: {p.pilotName}");
+            }
+
+            Console.Write("Enter Pilot ID: ");
+            int pilotId = int.Parse(Console.ReadLine());
+
+            Pilot pilot = context.Pilots
+                          .FirstOrDefault(p => p.pilotId == pilotId);
+
+            if (pilot == null)
+            {
+                Console.WriteLine("Pilot not found.");
+                return;
+            }
+
+            Console.Write("Enter Origin: ");
+            string origin = Console.ReadLine();
+
+            Console.Write("Enter Destination: ");
+            string destination = Console.ReadLine();
+
+            Console.Write("Enter Departure Date: ");
+            string date = Console.ReadLine();
+
+            Console.Write("Enter Departure Time: ");
+            string time = Console.ReadLine();
+
+            Console.Write("Enter Ticket Price: ");
+            decimal price = decimal.Parse(Console.ReadLine());
+
+            int flightId = context.Flights.Count + 1;
+
+            context.Flights.Add(new Flight
+            {
+                flightId = flightId,
+                flightCode = "OA-" + flightId,
+                aircraftId = aircraftId,
+                pilotId = pilotId,
+                origin = origin,
+                destination = destination,
+                departureDate = date,
+                departureTime = time,
+                ticketPrice = price,
+                availableSeats = aircraft.totalSeats,
+                status = "Scheduled"
+            });
+
+            pilot.isAvailable = false;
+
+            Console.WriteLine($"Flight scheduled successfully. Flight Code: OA-{flightId}");
+        }
         static void Main(string[] args)
             {
                 bool exit = false;
