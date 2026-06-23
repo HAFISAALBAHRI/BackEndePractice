@@ -31,7 +31,11 @@ namespace Flight_Management_System
 
             Console.Write("Enter passenger phone: ");
             string phone = Console.ReadLine();
-            
+            if (phone.Length != 8 || (phone[0] != '9' && phone[0] != '7'))
+            {
+                Console.WriteLine("Invalid phone number.");
+                return;
+            }
 
 
             Console.Write("Enter passport number: ");
