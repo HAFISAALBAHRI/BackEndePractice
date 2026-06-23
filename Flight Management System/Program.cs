@@ -17,8 +17,13 @@ namespace Flight_Management_System
         {
             Console.WriteLine("=== Register New Passenger ===");
 
-            Console.Write("Enter passenger name: ");
+            Console.Write("Enter passenger name:  ");
             string name = Console.ReadLine();
+            if (name.Split(' ').Length != 2)
+            {
+                Console.WriteLine("Please enter first name and family name.");
+                return;
+            }
 
             Console.Write("Enter passenger email: ");
             string email = Console.ReadLine();
