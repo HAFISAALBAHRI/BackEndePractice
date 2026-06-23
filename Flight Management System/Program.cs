@@ -66,8 +66,33 @@ namespace Flight_Management_System
             Console.WriteLine($"Passenger registered successfully. Assigned ID: {passengerId}");
         }
 
-       
-            static void Main(string[] args)
+        public static void AddAircraft()
+        {
+            Console.WriteLine("=== Add New Aircraft ===");
+
+            Console.Write("Enter aircraft model: ");
+            string model = Console.ReadLine();
+
+            int totalSeats;
+            Console.Write("Enter total seats: ");
+
+            while (!int.TryParse(Console.ReadLine(), out totalSeats) || totalSeats <= 0)
+            {
+                Console.WriteLine("Invalid number.");
+            }
+            int aircraftId = context.Aircrafts.Count + 1;
+
+            context.Aircrafts.Add(new Aircraft
+            {
+                aircraftId = aircraftId,
+                model = model,
+                totalSeats = totalSeats,
+                isOperational = true
+            });
+
+            Console.WriteLine($"Aircraft added successfully. Assigned ID: {aircraftId}");
+        }
+        static void Main(string[] args)
             {
                 bool exit = false;
 
@@ -96,17 +121,17 @@ namespace Flight_Management_System
                     switch (option)
                     {
                         case 1: RegisterPassenger(); break;
-                        //case 2: AddAircraft(); break;
-                        //case 3: RegisterPilot(); break;
-                        //case 4: ViewAllFlights(); break;
-                        //case 5: ScheduleFlight(); break;
-                        //case 6: BookFlight(); break;
-                        //case 7: CancelBooking(); break;
-                        //case 8: DepartFlight(); break;
-                        //case 9: CancelFlight(); break;
-                        //case 10: PassengerBookingHistory(); break;
-                        //case 11: FlightRevenueReport(); break;
-                        case 0: exit = true; break;
+                        case 2: AddAircraft(); break;
+                    //case 3: RegisterPilot(); break;
+                    //case 4: ViewAllFlights(); break;
+                    //case 5: ScheduleFlight(); break;
+                    //case 6: BookFlight(); break;
+                    //case 7: CancelBooking(); break;
+                    //case 8: DepartFlight(); break;
+                    //case 9: CancelFlight(); break;
+                    //case 10: PassengerBookingHistory(); break;
+                    //case 11: FlightRevenueReport(); break;
+                    case 0: exit = true; break;
                         default: Console.WriteLine("Invalid option. Please try again."); break;
                     }
 
