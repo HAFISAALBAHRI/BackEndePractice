@@ -22,9 +22,17 @@ namespace Flight_Management_System
 
             Console.Write("Enter passenger email: ");
             string email = Console.ReadLine();
+            if (!email.Contains("@") || !email.Contains("."))
+            {
+                Console.WriteLine("Invalid email. Try again.");
+                return;
+            }
+
 
             Console.Write("Enter passenger phone: ");
             string phone = Console.ReadLine();
+            
+
 
             Console.Write("Enter passport number: ");
             string passportNumber = Console.ReadLine();
