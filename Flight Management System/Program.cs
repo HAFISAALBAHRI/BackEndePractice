@@ -188,6 +188,11 @@ namespace Flight_Management_System
 
             Console.Write("Enter license number: ");
             string licenseNumber = Console.ReadLine();
+            if (licenseNumber == null)
+            {
+                Console.WriteLine("licenseNumber is needed");
+                return;
+            }
 
             int pilotId = context.Pilots.Count + 1;
 
