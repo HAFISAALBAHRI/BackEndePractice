@@ -518,6 +518,11 @@ namespace Flight_Management_System
 
             Console.Write("Enter Flight ID: ");
             int flightId = int.Parse(Console.ReadLine());
+            if (flightId == null)
+            {
+                Console.WriteLine("flightId is needed.");
+                return;
+            }
 
 
             Flight flight = context.Flights
