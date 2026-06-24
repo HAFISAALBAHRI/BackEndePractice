@@ -53,6 +53,12 @@ namespace Flight_Management_System
             Console.Write("Enter nationality: ");
             string nationality = Console.ReadLine();
 
+            if (string.IsNullOrWhiteSpace(nationality))
+            {
+                Console.WriteLine("Nationality cannot be empty.");
+                return;
+            }
+
             int passengerId = context.Passengers.Count + 1;
 
             context.Passengers.Add(
