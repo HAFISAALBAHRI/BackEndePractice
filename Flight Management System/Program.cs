@@ -328,6 +328,11 @@ namespace Flight_Management_System
 
             Flight flight = context.Flights
             .FirstOrDefault(f => f.flightId == booking.flightId); //Every booking belongs to a flight.
+            if (flight == null)
+            {
+                Console.WriteLine("Flight not found.");
+                return;
+            }
 
             flight.availableSeats++; //Increase the value of availableSeats by 1.
                                      //same as:flight.availableSeats = flight.availableSeats + 1;
