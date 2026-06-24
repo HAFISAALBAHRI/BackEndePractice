@@ -372,6 +372,24 @@ namespace Flight_Management_System
 
             Console.WriteLine($"Flight {flight.flightCode} has departed successfully.");
         }
+
+        public static void CancelFlight()
+        {
+            Console.WriteLine("\n=== Cancel Flight ===");
+
+            Console.Write("Enter Flight ID: ");
+            int flightId = int.Parse(Console.ReadLine());
+
+            Flight flight = context.Flights
+            .FirstOrDefault(f => f.flightId == flightId);
+
+            Pilot pilot = context.Pilots
+            .FirstOrDefault(p => p.pilotId == flight.pilotId);
+
+            flight.status = "Cancelled";
+
+            Console.WriteLine($"Flight {flight.flightCode} has been cancelled.");
+        }
         static void Main(string[] args)
             {
                 bool exit = false;
