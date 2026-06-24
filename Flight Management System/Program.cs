@@ -317,10 +317,10 @@ namespace Flight_Management_System
             }
 
             Flight flight = context.Flights
-            .FirstOrDefault(f => f.flightId == booking.flightId);
+            .FirstOrDefault(f => f.flightId == booking.flightId); //Every booking belongs to a flight.
 
-            flight.availableSeats++;
-
+            flight.availableSeats++; //Increase the value of availableSeats by 1.
+                                     //same as:flight.availableSeats = flight.availableSeats + 1;
             booking.status = "Cancelled";
 
             Console.WriteLine($"Booking {bookingId} has been cancelled.");
