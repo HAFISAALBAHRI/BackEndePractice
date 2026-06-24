@@ -15,7 +15,7 @@ namespace Flight_Management_System
         pilotId = 1,
         pilotName = "Ahmed Ali",
         pilotPhone = "91234567",
-        licenseNumber = "LIC001",
+        licenseNumber = "LIC-001",
         flightHours = 10,
         isAvailable = true
     },
@@ -25,7 +25,7 @@ namespace Flight_Management_System
         pilotId = 2,
         pilotName = "Sara Said",
         pilotPhone = "92345678",
-        licenseNumber = "LIC002",
+        licenseNumber = "LIC-002",
         flightHours = 20,
         isAvailable = true
     }
@@ -512,7 +512,35 @@ namespace Flight_Management_System
             Console.WriteLine($"Flight {flight.flightCode} has departed successfully.");
         }
 
+        public static void CancelFlight()
+        {
+            Console.WriteLine("\n=== Cancel Flight ===");
 
+            Console.Write("Enter Flight ID: ");
+            int flightId = int.Parse(Console.ReadLine());
+
+
+            Flight flight = context.Flights
+            .FirstOrDefault(f => f.flightId == flightId);
+
+            if (flight == null)
+            {
+                Console.WriteLine("Flight not found.");
+                return;
+            }
+
+            Pilot pilot = context.Pilots
+            .FirstOrDefault(p => p.pilotId == flight.pilotId);
+
+            flight.status = "Cancelled";
+
+            if (pilot != null)
+            {
+                pilot.isAvailable = true;
+            }
+
+            Console.WriteLine($"Flight {flight.flightCode} has been cancelled.");
+        }
 
         static void Main(string[] args)
             {
@@ -550,7 +578,7 @@ namespace Flight_Management_System
                         case 6: BookFlight(); break;
                         case 7: CancelBooking(); break;
                         case 8: DepartFlight(); break;
-                    //case 9: CancelFlight(); break;
+                        case 9: CancelFlight(); break;
                     //case 10: PassengerBookingHistory(); break;
                     //case 11: FlightRevenueReport(); break;
                     case 0: exit = true; break;
