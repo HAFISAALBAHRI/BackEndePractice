@@ -19,6 +19,7 @@ namespace Flight_Management_System
 
             Console.Write("Enter passenger name:  ");
             string name = Console.ReadLine();
+
             if (name.Split(' ').Length != 2)
             {
                 Console.WriteLine("Please enter first name and family name.");
@@ -82,6 +83,12 @@ namespace Flight_Management_System
 
             Console.Write("Enter aircraft model: ");
             string model = Console.ReadLine();
+
+            if (model == null)
+            {
+                Console.WriteLine("aircraft model needed.");
+                return;
+            }
 
             int totalSeats;
             Console.Write("Enter total seats: ");
