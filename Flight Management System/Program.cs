@@ -370,8 +370,9 @@ namespace Flight_Management_System
 
 
             flight.status = "Departed";
+            pilot.flightHours += flight.flightDuration;
 
-            pilot.flightHours++;
+            // pilot.flightHours++;
 
             pilot.isAvailable = true;
 
