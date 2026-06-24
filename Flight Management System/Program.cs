@@ -117,6 +117,11 @@ namespace Flight_Management_System
 
             Console.Write("Enter pilot name: ");
             string name = Console.ReadLine();
+            if (name == null)
+            {
+                Console.WriteLine("pilot name is needed");
+                return;
+            }
 
             Console.Write("Enter pilot phone: ");
             string phone = Console.ReadLine();
