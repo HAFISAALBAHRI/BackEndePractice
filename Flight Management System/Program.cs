@@ -346,9 +346,15 @@ namespace Flight_Management_System
             Flight flight = context.Flights
             .FirstOrDefault(f => f.flightId == flightId);
 
-       
+            if (flight == null)
+            {
+                Console.WriteLine("Flight not found.");
+                return;
+            }
             Pilot pilot = context.Pilots
             .FirstOrDefault(p => p.pilotId == flight.pilotId);
+
+          
 
             flight.status = "Departed";
 
