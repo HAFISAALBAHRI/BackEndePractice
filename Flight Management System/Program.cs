@@ -432,7 +432,7 @@ namespace Flight_Management_System
                 status = "Confirmed"
             });
 
-            flight.availableSeats--;
+            flight.availableSeats--; //flight.availableSeats = flight.availableSeats - 1;
 
             Console.WriteLine($"Booking successful. Booking ID: {bookingId}");
         }
