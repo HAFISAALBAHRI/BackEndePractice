@@ -299,6 +299,32 @@ namespace Flight_Management_System
 
             Console.WriteLine($"Booking successful. Booking ID: {bookingId}");
         }
+
+        public static void CancelBooking()
+        {
+            Console.WriteLine("\n=== Cancel Booking ===");
+
+            Console.Write("Enter Booking ID: ");
+            int bookingId = int.Parse(Console.ReadLine());
+
+            Booking booking = context.Bookings
+            .FirstOrDefault(b => b.bookingId == bookingId);
+
+            if (booking == null)
+            {
+                Console.WriteLine("Booking not found.");
+                return;
+            }
+
+            Flight flight = context.Flights
+            .FirstOrDefault(f => f.flightId == booking.flightId);
+
+            flight.availableSeats++;
+
+            booking.status = "Cancelled";
+
+            Console.WriteLine($"Booking {bookingId} has been cancelled.");
+        }
         static void Main(string[] args)
             {
                 bool exit = false;
