@@ -47,7 +47,24 @@ namespace Flight_Management_System
         isOperational = true
     }
 },
-            Flights = new List<Flight>(),
+            Flights = new List<Flight>()
+            {
+    new Flight
+    {
+        flightId = 1,
+        flightCode = "OA-1",
+        aircraftId = 1,
+        pilotId = 1,
+        origin = "Muscat",
+        destination = "Dubai",
+        departureDate = "25/06/2026",
+        departureTime = "10:00",
+        flightDuration = 1,
+        ticketPrice = 50,
+        availableSeats = 180,
+        status = "Scheduled"
+    }
+},
             Bookings = new List<Booking>()
         };
 
