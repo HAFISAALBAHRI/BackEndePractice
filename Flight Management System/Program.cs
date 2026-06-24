@@ -353,8 +353,11 @@ namespace Flight_Management_System
             }
             Pilot pilot = context.Pilots
             .FirstOrDefault(p => p.pilotId == flight.pilotId);
+            if (pilot == null)
+            {
+                Console.WriteLine("pilot not found.");
+            }
 
-          
 
             flight.status = "Departed";
 
