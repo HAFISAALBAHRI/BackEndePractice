@@ -186,6 +186,12 @@ namespace Flight_Management_System
 
             Console.Write("Enter Aircraft ID: ");
             int aircraftId = int.Parse(Console.ReadLine());
+            if (aircraftId == null)
+            {
+                Console.WriteLine("Pilot not found.");
+                return;
+            }
+
 
             Aircraft aircraft = context.Aircrafts
                 .FirstOrDefault(a => a.aircraftId == aircraftId);
@@ -203,6 +209,11 @@ namespace Flight_Management_System
 
             Console.Write("Enter Pilot ID: ");
             int pilotId = int.Parse(Console.ReadLine());
+            if (pilotId == null)
+            {
+                Console.WriteLine("Pilot not found.");
+                return;
+            }
 
             Pilot pilot = context.Pilots
                 .FirstOrDefault(p => p.pilotId == pilotId);
