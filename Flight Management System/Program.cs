@@ -7,7 +7,28 @@ namespace Flight_Management_System
         public static FlightContext context = new FlightContext
         {
             Passengers = new List<Passenger>(),
-            Pilots = new List<Pilot>(),
+            Pilots = new List<Pilot>()
+            {
+    new Pilot
+    {
+        pilotId = 1,
+        pilotName = "Ahmed Ali",
+        pilotPhone = "91234567",
+        licenseNumber = "LIC001",
+        flightHours = 10,
+        isAvailable = true
+    },
+
+    new Pilot
+    {
+        pilotId = 2,
+        pilotName = "Sara Said",
+        pilotPhone = "92345678",
+        licenseNumber = "LIC002",
+        flightHours = 20,
+        isAvailable = true
+    }
+},
             Aircrafts = new List<Aircraft>(),
             Flights = new List<Flight>(),
             Bookings = new List<Booking>()
@@ -449,6 +470,7 @@ namespace Flight_Management_System
         }
 
 
+
         static void Main(string[] args)
             {
                 bool exit = false;
@@ -483,8 +505,8 @@ namespace Flight_Management_System
                         case 4: ViewAllFlights(); break;
                         case 5: ScheduleFlight(); break;
                         case 6: BookFlight(); break;
-                    //case 7: CancelBooking(); break;
-                    //case 8: DepartFlight(); break;
+                        case 7: CancelBooking(); break;
+                        case 8: DepartFlight(); break;
                     //case 9: CancelFlight(); break;
                     //case 10: PassengerBookingHistory(); break;
                     //case 11: FlightRevenueReport(); break;
