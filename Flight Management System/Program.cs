@@ -223,6 +223,11 @@ namespace Flight_Management_System
 
             Console.Write("Enter Destination: ");
             string destination = Console.ReadLine();
+            if (destination == null)
+            {
+                Console.WriteLine("destination is needed");
+                return;
+            }
 
             DateTime d;
             Console.Write("Enter Departure Date (dd/MM/yyyy):  ");
@@ -290,7 +295,11 @@ namespace Flight_Management_System
 
             Console.Write("Enter Passenger ID: ");
             int passengerId = int.Parse(Console.ReadLine());
-
+            if (passengerId == null)
+            {
+                Console.WriteLine("passengerId is needed");
+                return;
+            }
             Passenger passenger = context.Passengers
                 .FirstOrDefault(p => p.passengerId == passengerId);
 
