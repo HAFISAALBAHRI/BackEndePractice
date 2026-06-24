@@ -226,6 +226,10 @@ namespace Flight_Management_System
 
             string departureTime = t.ToString("HH:mm");
 
+            Console.Write("Enter Flight Duration (hours): ");
+            int flightDuration = int.Parse(Console.ReadLine());
+
+
             Console.Write("Enter Ticket Price: ");
             decimal price = decimal.Parse(Console.ReadLine());
 
@@ -241,6 +245,7 @@ namespace Flight_Management_System
                 destination = destination,
                 departureDate = departureDate,
                 departureTime = departureTime,
+                flightDuration = flightDuration,
                 ticketPrice = price,
                 availableSeats = aircraft.totalSeats,
                 status = "Scheduled"
