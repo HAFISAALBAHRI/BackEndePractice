@@ -29,7 +29,24 @@ namespace Flight_Management_System
         isAvailable = true
     }
 },
-            Aircrafts = new List<Aircraft>(),
+            Aircrafts = new List<Aircraft>()
+            {
+    new Aircraft
+    {
+        aircraftId = 1,
+        model = "Boeing 737",
+        totalSeats = 180,
+        isOperational = true
+    },
+
+    new Aircraft
+    {
+        aircraftId = 2,
+        model = "Airbus A320",
+        totalSeats = 150,
+        isOperational = true
+    }
+},
             Flights = new List<Flight>(),
             Bookings = new List<Booking>()
         };
