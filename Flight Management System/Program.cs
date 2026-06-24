@@ -1,4 +1,5 @@
 ﻿using Flight_Management_System.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Flight_Management_System
 {
@@ -187,12 +188,15 @@ namespace Flight_Management_System
             }
 
             Console.Write("Enter license number: ");
-            string licenseNumber = Console.ReadLine();
-            if (licenseNumber == null)
+            string number = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(number))
             {
-                Console.WriteLine("licenseNumber is needed");
+                Console.WriteLine("License number is needed.");
                 return;
             }
+
+            string licenseNumber = "LIC-" + number;
 
             int pilotId = context.Pilots.Count + 1;
 
