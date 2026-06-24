@@ -215,6 +215,11 @@ namespace Flight_Management_System
 
             Console.Write("Enter Origin: ");
             string origin = Console.ReadLine();
+            if (origin == null)
+            {
+                Console.WriteLine("origin is needed");
+                return;
+            }
 
             Console.Write("Enter Destination: ");
             string destination = Console.ReadLine();
