@@ -238,6 +238,12 @@ namespace Flight_Management_System
             Console.Write("Enter Ticket Price: ");
             decimal price = decimal.Parse(Console.ReadLine());
 
+            if (price <= 0)
+            {
+                Console.WriteLine("Ticket Price must be greater than 0.");
+                return;
+            }
+
             int flightId = context.Flights.Count + 1;
 
             context.Flights.Add(new Flight
