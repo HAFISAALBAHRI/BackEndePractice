@@ -41,10 +41,14 @@ namespace Flight_Management_System
                 Console.WriteLine("Invalid phone number.");
                 return;
             }
-
-
             Console.Write("Enter passport number: ");
             string passportNumber = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(passportNumber))
+            {
+                Console.WriteLine("Passport number cannot be empty.");
+                return;
+            }
 
             Console.Write("Enter nationality: ");
             string nationality = Console.ReadLine();
@@ -324,6 +328,29 @@ namespace Flight_Management_System
             booking.status = "Cancelled";
 
             Console.WriteLine($"Booking {bookingId} has been cancelled.");
+        }
+
+        public static void DepartFlight()
+        {
+            Console.WriteLine("\n=== Depart Flight ===");
+
+            Console.Write("Enter Flight ID: ");
+            int flightId = int.Parse(Console.ReadLine());
+
+            Flight flight = context.Flights
+            .FirstOrDefault(f => f.flightId == flightId);
+
+       
+            Pilot pilot = context.Pilots
+            .FirstOrDefault(p => p.pilotId == flight.pilotId);
+
+            flight.status = "Departed";
+
+            pilot.flightHours++;
+
+            pilot.isAvailable = true;
+
+            Console.WriteLine($"Flight {flight.flightCode} has departed successfully.");
         }
         static void Main(string[] args)
             {
