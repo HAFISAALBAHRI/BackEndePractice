@@ -379,6 +379,12 @@ namespace Flight_Management_System
 
             Console.Write("Enter Booking ID: ");
             int bookingId = int.Parse(Console.ReadLine());
+            if (bookingId == null)
+            {
+                Console.WriteLine("bookingId is needed.");
+                return;
+            }
+
 
             Booking booking = context.Bookings
             .FirstOrDefault(b => b.bookingId == bookingId);
