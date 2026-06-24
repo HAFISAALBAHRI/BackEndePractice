@@ -229,7 +229,12 @@ namespace Flight_Management_System
 
             Console.Write("Enter Flight Duration (hours): ");
             int flightDuration = int.Parse(Console.ReadLine());
-            
+            if (flightDuration <= 0)
+            {
+                Console.WriteLine("Flight Duration is required.");
+                return;
+            }
+
             Console.Write("Enter Ticket Price: ");
             decimal price = decimal.Parse(Console.ReadLine());
 
