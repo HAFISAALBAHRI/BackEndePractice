@@ -349,6 +349,11 @@ namespace Flight_Management_System
 
             Console.Write("Enter Seat Number: ");
             string seatNumber = Console.ReadLine();
+            if (seatNumber == null)
+            {
+                Console.WriteLine("seatNumber is needed.");
+                return;
+            }
 
             int bookingId = context.Bookings.Count + 1;
 
