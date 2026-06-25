@@ -64,6 +64,21 @@ namespace Flight_Management_System
         ticketPrice = 50,
         availableSeats = 180,
         status = "Scheduled"
+    },
+     new Flight
+    {
+        flightId = 2,
+        flightCode = "OA-2",
+        aircraftId = 2,
+        pilotId = 1,
+        origin = "Muscat",
+        destination = "Dubai",
+        departureDate = "27/05/2026",
+        departureTime = "10:00",
+        flightDuration = 3,
+        ticketPrice = 50,
+        availableSeats = 180,
+        status = "Confirmed"
     }
 },
             Bookings = new List<Booking>()
@@ -593,6 +608,32 @@ namespace Flight_Management_System
                 Console.WriteLine("--------------------------------");
             }
         }
+
+        //case 11 - Flight Revenue Report
+        public static void FlightRevenueReport()
+        {
+            Console.WriteLine("\n=== Flight Revenue & Load Factor Report ===");
+
+            foreach (Flight flight in context.Flights)
+            {
+                Aircraft aircraft = context.Aircrafts
+                .FirstOrDefault(a => a.aircraftId == flight.aircraftId);
+
+                int bookingsCount = context.Bookings
+                .Count(b => b.flightId == flight.flightId &&
+                b.status == "Confirmed");
+
+                decimal revenue = bookingsCount * flight.ticketPrice;
+
+                double loadFactor = ((double)bookingsCount / aircraft.totalSeats) * 100;
+
+                Console.WriteLine($"Flight Code: {flight.flightCode}");
+                Console.WriteLine($"Bookings: {bookingsCount}");
+                Console.WriteLine($"Revenue: {revenue} OMR");
+                Console.WriteLine($"Load Factor: {loadFactor:F2}%");
+                Console.WriteLine("--------------------------------");
+            }
+        }
         static void Main(string[] args)
             {
                 bool exit = false;
@@ -631,8 +672,8 @@ namespace Flight_Management_System
                         case 8: DepartFlight(); break;
                         case 9: CancelFlight(); break;
                         case 10: PassengerBookingHistory(); break;
-                    //case 11: FlightRevenueReport(); break;
-                    case 0: exit = true; break;
+                        case 11: FlightRevenueReport(); break;
+                        case 0: exit = true; break;
                         default: Console.WriteLine("Invalid option. Please try again."); break;
                     }
 
