@@ -68,7 +68,7 @@ namespace Flight_Management_System
 },
             Bookings = new List<Booking>()
         };
-
+        // case 1  - Register Passenger
         public static void RegisterPassenger()
         {
             Console.WriteLine("=== Register New Passenger ===");
@@ -133,6 +133,7 @@ namespace Flight_Management_System
             Console.WriteLine($"Passenger registered successfully. Assigned ID: {passengerId}");
         }
 
+        // case 2  - Add Aircraft 
         public static void AddAircraft()
         {
             Console.WriteLine("=== Add New Aircraft ===");
@@ -167,6 +168,7 @@ namespace Flight_Management_System
             Console.WriteLine($"Aircraft added successfully. Assigned ID: {aircraftId}");
         }
 
+        // case 3  - Register Pilot
         public static void RegisterPilot()
         {
             Console.WriteLine("=== Register New Pilot ===");
@@ -213,6 +215,7 @@ namespace Flight_Management_System
             Console.WriteLine($"Pilot registered successfully. Assigned ID: {pilotId}");
         }
 
+        //case 4  - View All Flights
         public static void ViewAllFlights()
         {
             Console.WriteLine("=== All Flights ===");
@@ -231,6 +234,7 @@ namespace Flight_Management_System
             }
         }
 
+        // case 5  - Schedule Flight
         /*
         in case 5 Automatically generated values
         flightId = context.Flights.Count + 1;
@@ -364,6 +368,7 @@ namespace Flight_Management_System
             Console.WriteLine($"Flight scheduled successfully. Flight Code: OA-{flightId}");
         }
 
+        // case 6  - Book Flight
         public static void BookFlight()
         {
             Console.WriteLine("\n=== Book Flight ===");
@@ -437,6 +442,7 @@ namespace Flight_Management_System
             Console.WriteLine($"Booking successful. Booking ID: {bookingId}");
         }
 
+        // case 7  - Cancel Booking
         public static void CancelBooking()
         {
             Console.WriteLine("\n=== Cancel Booking ===");
@@ -474,6 +480,7 @@ namespace Flight_Management_System
             Console.WriteLine($"Booking {bookingId} has been cancelled.");
         }
 
+        // case 8  - Depart Flight
         public static void DepartFlight()
         {
             Console.WriteLine("\n=== Depart Flight ===");
@@ -512,6 +519,7 @@ namespace Flight_Management_System
             Console.WriteLine($"Flight {flight.flightCode} has departed successfully.");
         }
 
+        // case 9  - Cancel Flight
         public static void CancelFlight()
         {
             Console.WriteLine("\n=== Cancel Flight ===");
@@ -547,6 +555,7 @@ namespace Flight_Management_System
             Console.WriteLine($"Flight {flight.flightCode} has been cancelled.");
         }
 
+        // case 10 - Passenger Booking History
         public static void PassengerBookingHistory()
         {
             Console.WriteLine("\n=== Passenger Booking History ===");
