@@ -80,7 +80,7 @@ namespace Flight_Management_System
         flightId = 2,
         flightCode = "OA-2",
         aircraftId = 2,
-        pilotId = 1,
+        pilotId = 2,
         origin = "Muscat",
         destination = "Dubai",
         departureDate = "27/05/2026",
@@ -365,22 +365,32 @@ namespace Flight_Management_System
             string departureTime = t.ToString("HH:mm");
 
             Console.Write("Enter Flight Duration (hours): ");
-            int flightDuration = int.Parse(Console.ReadLine());
-
-            if (flightDuration <= 0)
+            //int flightDuration = int.Parse(Console.ReadLine());
+            if (!int.TryParse(Console.ReadLine(), out int flightDuration) || flightDuration <= 0)
             {
                 Console.WriteLine("Flight Duration must be greater than 0.");
                 return;
             }
+            //If the user enters letters, the program crashes. 
+            //if (flightDuration <= 0)
+            //{
+            //    Console.WriteLine("Flight Duration must be greater than 0.");
+            //    return;
+            //}
 
             Console.Write("Enter Ticket Price: ");
-            decimal price = decimal.Parse(Console.ReadLine());
-
-            if (price <= 0)
+            if (!decimal.TryParse(Console.ReadLine(), out decimal price) || price <= 0)
             {
                 Console.WriteLine("Ticket Price must be greater than 0.");
                 return;
             }
+            //decimal price = decimal.Parse(Console.ReadLine());
+
+            //if (price <= 0)
+            //{
+            //    Console.WriteLine("Ticket Price must be greater than 0.");
+            //    return;
+            //}
 
             int flightId = context.Flights.Count + 1;
 
@@ -409,6 +419,7 @@ namespace Flight_Management_System
         public static void BookFlight()
         {
             Console.WriteLine("\n=== Book Flight ===");
+
             Console.Write("Enter Passenger ID: ");
 
             if (!int.TryParse(Console.ReadLine(), out int passengerId))
@@ -416,6 +427,7 @@ namespace Flight_Management_System
                 Console.WriteLine("Passenger ID is needed.");
                 return;
             }
+
             Passenger passenger = context.Passengers
                 .FirstOrDefault(p => p.passengerId == passengerId);
 
@@ -450,12 +462,15 @@ namespace Flight_Management_System
                 Console.WriteLine("Flight ID is needed.");
                 return;
             }
+
             Flight flight = context.Flights
-                .FirstOrDefault(f => f.flightId == flightId);
+                .FirstOrDefault(f => f.flightId == flightId &&
+                                     f.status == "Scheduled" &&
+                                     f.availableSeats > 0);
 
             if (flight == null)
             {
-                Console.WriteLine("Flight not found.");
+                Console.WriteLine("Flight not found or no seats available.");
                 return;
             }
 
@@ -481,7 +496,7 @@ namespace Flight_Management_System
                 status = "Confirmed"
             });
 
-            flight.availableSeats--; //flight.availableSeats = flight.availableSeats - 1;
+            flight.availableSeats--;
 
             Console.WriteLine($"Booking successful. Booking ID: {bookingId}");
         }
@@ -569,12 +584,13 @@ namespace Flight_Management_System
         {
             Console.WriteLine("\n=== Cancel Flight ===");
 
+            Console.Write("Enter Flight ID: ");
+
             if (!int.TryParse(Console.ReadLine(), out int flightId))
             {
                 Console.WriteLine("Flight ID is needed.");
                 return;
             }
-
 
             Flight flight = context.Flights
             .FirstOrDefault(f => f.flightId == flightId);
@@ -602,6 +618,8 @@ namespace Flight_Management_System
         public static void PassengerBookingHistory()
         {
             Console.WriteLine("\n=== Passenger Booking History ===");
+
+            Console.Write("Enter Passenger ID: ");
 
             if (!int.TryParse(Console.ReadLine(), out int passengerId))
             {
