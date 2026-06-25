@@ -98,10 +98,10 @@ namespace Flight_Management_System
         {
             Console.WriteLine("=== Register New Passenger ===");
 
-            Console.Write("Enter passenger name:  ");
+            Console.Write("Enter passenger name: ");
             string name = Console.ReadLine();
 
-            if (name.Split(' ').Length != 2)
+            if (string.IsNullOrWhiteSpace(name) || name.Split(' ').Length != 2)
             {
                 Console.WriteLine("Please enter first name and family name.");
                 return;
@@ -109,20 +109,26 @@ namespace Flight_Management_System
 
             Console.Write("Enter passenger email: ");
             string email = Console.ReadLine();
-            if (!email.Contains("@") || !email.Contains("."))
+
+            if (string.IsNullOrWhiteSpace(email) ||
+                !email.Contains("@") ||
+                !email.Contains("."))
             {
-                Console.WriteLine("Invalid email. Try again.");
+                Console.WriteLine("Invalid email.");
                 return;
             }
 
-
             Console.Write("Enter passenger phone: ");
             string phone = Console.ReadLine();
-            if (phone.Length != 8 || (phone[0] != '9' && phone[0] != '7'))
+
+            if (string.IsNullOrWhiteSpace(phone) ||
+                phone.Length != 8 ||
+                (phone[0] != '9' && phone[0] != '7'))
             {
                 Console.WriteLine("Invalid phone number.");
                 return;
             }
+
             Console.Write("Enter passport number: ");
             string passportNumber = Console.ReadLine();
 
@@ -143,21 +149,18 @@ namespace Flight_Management_System
 
             int passengerId = context.Passengers.Count + 1;
 
-            context.Passengers.Add(
-                new Passenger
-                {
-                    passengerId = passengerId,
-                    passengerName = name,
-                    passengerEmail = email,
-                    passengerPhone = phone,
-                    passportNumber = passportNumber,
-                    nationality = nationality
-                }
-            );
+            context.Passengers.Add(new Passenger
+            {
+                passengerId = passengerId,
+                passengerName = name,
+                passengerEmail = email,
+                passengerPhone = phone,
+                passportNumber = passportNumber,
+                nationality = nationality
+            });
 
             Console.WriteLine($"Passenger registered successfully. Assigned ID: {passengerId}");
         }
-
         // case 2  - Add Aircraft 
         public static void AddAircraft()
         {
@@ -165,17 +168,15 @@ namespace Flight_Management_System
 
             Console.Write("Enter aircraft model: ");
             string model = Console.ReadLine();
-
-            if (model == null)
+            if (string.IsNullOrWhiteSpace(model))
             {
-                Console.WriteLine("aircraft model needed.");
+                Console.WriteLine("Aircraft model needed.");
                 return;
             }
-
             int totalSeats;
             Console.Write("Enter total seats: ");
 
-            if (!int.TryParse(Console.ReadLine(), out totalSeats) || totalSeats < 50)
+            if (!int.TryParse(Console.ReadLine(), out totalSeats) || totalSeats < 50 || totalSeats == null)
             {
                 Console.Write("Invalid number. Seats must be 50 or more: ");
                 return;
@@ -200,15 +201,19 @@ namespace Flight_Management_System
 
             Console.Write("Enter pilot name: ");
             string name = Console.ReadLine();
-            if (name == null)
+
+            if (string.IsNullOrWhiteSpace(name))
             {
-                Console.WriteLine("pilot name is needed");
+                Console.WriteLine("Pilot name is needed.");
                 return;
             }
 
             Console.Write("Enter pilot phone: ");
             string phone = Console.ReadLine();
-            if (phone.Length != 8 || (phone[0] != '9' && phone[0] != '7'))
+
+            if (string.IsNullOrWhiteSpace(phone) ||
+                phone.Length != 8 ||
+                (phone[0] != '9' && phone[0] != '7'))
             {
                 Console.WriteLine("Invalid phone number.");
                 return;
@@ -239,7 +244,6 @@ namespace Flight_Management_System
 
             Console.WriteLine($"Pilot registered successfully. Assigned ID: {pilotId}");
         }
-
         //case 4  - View All Flights
         public static void ViewAllFlights()
         {
@@ -276,14 +280,20 @@ namespace Flight_Management_System
             {
                 Console.WriteLine($"ID: {a.aircraftId} | Model: {a.model} | Seats: {a.totalSeats}");
             }
-
             Console.Write("Enter Aircraft ID: ");
-            int aircraftId = int.Parse(Console.ReadLine());
-            if (aircraftId == null)
+
+            if (!int.TryParse(Console.ReadLine(), out int aircraftId))
             {
-                Console.WriteLine("Pilot not found.");
+                Console.WriteLine("Aircraft ID is needed.");
                 return;
             }
+            //Console.Write("Enter Aircraft ID: ");
+            //int aircraftId = int.Parse(Console.ReadLine());
+            //if (aircraftId == null)
+            //{
+            //    Console.WriteLine("Pilot not found.");
+            //    return;
+            //}
 
 
             Aircraft aircraft = context.Aircrafts
@@ -301,10 +311,10 @@ namespace Flight_Management_System
             }
 
             Console.Write("Enter Pilot ID: ");
-            int pilotId = int.Parse(Console.ReadLine());
-            if (pilotId == null)
+
+            if (!int.TryParse(Console.ReadLine(), out int pilotId))
             {
-                Console.WriteLine("Pilot not found.");
+                Console.WriteLine("Pilot ID is needed.");
                 return;
             }
 
@@ -319,45 +329,47 @@ namespace Flight_Management_System
 
             Console.Write("Enter Origin: ");
             string origin = Console.ReadLine();
-            if (origin == null)
+
+            if (string.IsNullOrWhiteSpace(origin))
             {
-                Console.WriteLine("origin is needed");
+                Console.WriteLine("Origin is needed.");
                 return;
             }
 
             Console.Write("Enter Destination: ");
             string destination = Console.ReadLine();
-            if (destination == null)
+
+            if (string.IsNullOrWhiteSpace(destination))
             {
-                Console.WriteLine("destination is needed");
+                Console.WriteLine("Destination is needed.");
                 return;
             }
 
-            DateTime d;
-            Console.Write("Enter Departure Date (dd/MM/yyyy):  ");
+            Console.Write("Enter Departure Date (dd/MM/yyyy): ");
 
-            while (!DateTime.TryParse(Console.ReadLine(), out d))
+            if (!DateTime.TryParse(Console.ReadLine(), out DateTime d))
             {
-                Console.Write("Invalid Date. Enter again: ");
+                Console.WriteLine("Invalid Date.");
+                return;
             }
 
             string departureDate = d.ToString("dd/MM/yyyy");
-
-            DateTime t;
             Console.Write("Enter Departure Time (HH:mm): ");
 
-            while (!DateTime.TryParse(Console.ReadLine(), out t))
+            if (!DateTime.TryParse(Console.ReadLine(), out DateTime t))
             {
-                Console.Write("Invalid Time. Enter again: ");
+                Console.WriteLine("Invalid Time.");
+                return;
             }
 
             string departureTime = t.ToString("HH:mm");
 
             Console.Write("Enter Flight Duration (hours): ");
             int flightDuration = int.Parse(Console.ReadLine());
+
             if (flightDuration <= 0)
             {
-                Console.WriteLine("Flight Duration is required.");
+                Console.WriteLine("Flight Duration must be greater than 0.");
                 return;
             }
 
@@ -397,12 +409,11 @@ namespace Flight_Management_System
         public static void BookFlight()
         {
             Console.WriteLine("\n=== Book Flight ===");
-
             Console.Write("Enter Passenger ID: ");
-            int passengerId = int.Parse(Console.ReadLine());
-            if (passengerId == null)
+
+            if (!int.TryParse(Console.ReadLine(), out int passengerId))
             {
-                Console.WriteLine("passengerId is needed");
+                Console.WriteLine("Passenger ID is needed.");
                 return;
             }
             Passenger passenger = context.Passengers
@@ -425,11 +436,10 @@ namespace Flight_Management_System
             }
 
             Console.Write("Enter Flight ID: ");
-            int flightId = int.Parse(Console.ReadLine());
 
-            if (flightId == null)
+            if (!int.TryParse(Console.ReadLine(), out int flightId))
             {
-                Console.WriteLine("flightId is needed.");
+                Console.WriteLine("Flight ID is needed.");
                 return;
             }
             Flight flight = context.Flights
@@ -443,9 +453,10 @@ namespace Flight_Management_System
 
             Console.Write("Enter Seat Number: ");
             string seatNumber = Console.ReadLine();
-            if (seatNumber == null)
+
+            if (string.IsNullOrWhiteSpace(seatNumber))
             {
-                Console.WriteLine("seatNumber is needed.");
+                Console.WriteLine("Seat Number is needed.");
                 return;
             }
 
@@ -473,10 +484,10 @@ namespace Flight_Management_System
             Console.WriteLine("\n=== Cancel Booking ===");
 
             Console.Write("Enter Booking ID: ");
-            int bookingId = int.Parse(Console.ReadLine());
-            if (bookingId == null)
+
+            if (!int.TryParse(Console.ReadLine(), out int bookingId))
             {
-                Console.WriteLine("bookingId is needed.");
+                Console.WriteLine("Booking ID is needed.");
                 return;
             }
 
@@ -511,10 +522,10 @@ namespace Flight_Management_System
             Console.WriteLine("\n=== Depart Flight ===");
 
             Console.Write("Enter Flight ID: ");
-            int flightId = int.Parse(Console.ReadLine());
-            if (flightId == null)
+
+            if (!int.TryParse(Console.ReadLine(), out int flightId))
             {
-                Console.WriteLine("flightId is needed.");
+                Console.WriteLine("Flight ID is needed.");
                 return;
             }
 
@@ -589,10 +600,9 @@ namespace Flight_Management_System
             int passengerId = int.Parse(Console.ReadLine());
             if (passengerId == null)
             {
-                Console.WriteLine("passengerId is needed.");
+                Console.WriteLine("Aircraft model needed.");
                 return;
             }
-
             Passenger passenger = context.Passengers
             .FirstOrDefault(p => p.passengerId == passengerId);
 
