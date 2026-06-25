@@ -553,6 +553,11 @@ namespace Flight_Management_System
 
             Console.Write("Enter Passenger ID: ");
             int passengerId = int.Parse(Console.ReadLine());
+            if (passengerId == null)
+            {
+                Console.WriteLine("passengerId is needed.");
+                return;
+            }
 
             Passenger passenger = context.Passengers
             .FirstOrDefault(p => p.passengerId == passengerId);
