@@ -621,7 +621,7 @@ namespace Flight_Management_System
                         case 7: CancelBooking(); break;
                         case 8: DepartFlight(); break;
                         case 9: CancelFlight(); break;
-                    //case 10: PassengerBookingHistory(); break;
+                        case 10: PassengerBookingHistory(); break;
                     //case 11: FlightRevenueReport(); break;
                     case 0: exit = true; break;
                         default: Console.WriteLine("Invalid option. Please try again."); break;
