@@ -547,6 +547,38 @@ namespace Flight_Management_System
             Console.WriteLine($"Flight {flight.flightCode} has been cancelled.");
         }
 
+        public static void PassengerBookingHistory()
+        {
+            Console.WriteLine("\n=== Passenger Booking History ===");
+
+            Console.Write("Enter Passenger ID: ");
+            int passengerId = int.Parse(Console.ReadLine());
+
+            Passenger passenger = context.Passengers
+            .FirstOrDefault(p => p.passengerId == passengerId);
+
+            if (passenger == null)
+            {
+                Console.WriteLine("Passenger not found.");
+                return;
+            }
+
+            foreach (Booking b in context.Bookings
+            .Where(b => b.passengerId == passengerId))
+            {
+                Flight flight = context.Flights
+                .FirstOrDefault(f => f.flightId == b.flightId);
+
+                Console.WriteLine($"Booking ID: {b.bookingId}");
+                Console.WriteLine($"Flight Code: {flight.flightCode}");
+                Console.WriteLine($"From: {flight.origin}");
+                Console.WriteLine($"To: {flight.destination}");
+                Console.WriteLine($"Seat Number: {b.seatNumber}");
+                Console.WriteLine($"Booking Date: {b.bookingDate}");
+                Console.WriteLine($"Status: {b.status}");
+                Console.WriteLine("--------------------------------");
+            }
+        }
         static void Main(string[] args)
             {
                 bool exit = false;
