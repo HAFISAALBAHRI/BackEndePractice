@@ -7,7 +7,17 @@ namespace Flight_Management_System
     {
         public static FlightContext context = new FlightContext
         {
-            Passengers = new List<Passenger>(),
+            Passengers = new List<Passenger>() {
+            new Passenger
+            {
+                passengerId = 1,
+                passengerName = "Ahmed Ali",
+                passengerPhone = "91234567",
+                passengerEmail = "ahmed@gmail.com",
+                passportNumber = "P123456",
+                nationality = "Omani"
+            }
+            },
             Pilots = new List<Pilot>()
             {
     new Pilot
