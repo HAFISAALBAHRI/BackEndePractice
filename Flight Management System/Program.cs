@@ -626,8 +626,9 @@ namespace Flight_Management_System
                 Console.WriteLine("Passenger ID is needed.");
                 return;
             }
+
             Passenger passenger = context.Passengers
-            .FirstOrDefault(p => p.passengerId == passengerId);
+                .FirstOrDefault(p => p.passengerId == passengerId);
 
             if (passenger == null)
             {
@@ -635,21 +636,31 @@ namespace Flight_Management_System
                 return;
             }
 
+            decimal totalSpent = 0;
+
             foreach (Booking b in context.Bookings
-            .Where(b => b.passengerId == passengerId))
+                .Where(b => b.passengerId == passengerId))
             {
                 Flight flight = context.Flights
-                .FirstOrDefault(f => f.flightId == b.flightId);
+                    .FirstOrDefault(f => f.flightId == b.flightId);
 
                 Console.WriteLine($"Booking ID: {b.bookingId}");
                 Console.WriteLine($"Flight Code: {flight.flightCode}");
                 Console.WriteLine($"From: {flight.origin}");
                 Console.WriteLine($"To: {flight.destination}");
+                Console.WriteLine($"Departure Date: {flight.departureDate}");
                 Console.WriteLine($"Seat Number: {b.seatNumber}");
-                Console.WriteLine($"Booking Date: {b.bookingDate}");
+                Console.WriteLine($"Price Paid: {b.totalPrice}");
                 Console.WriteLine($"Status: {b.status}");
                 Console.WriteLine("--------------------------------");
+
+                if (b.status == "Confirmed")
+                {
+                    totalSpent += b.totalPrice;
+                }
             }
+
+            Console.WriteLine($"Total Amount Spent: {totalSpent}");
         }
 
         //case 11 - Flight Revenue Report
