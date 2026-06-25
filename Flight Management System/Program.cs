@@ -123,7 +123,7 @@ namespace Flight_Management_System
 
             if (string.IsNullOrWhiteSpace(phone) ||
                 phone.Length != 8 ||
-                (phone[0] != '9' && phone[0] != '7'))
+                (phone[0] != '9' && phone[0] != '7') || !phone.All(char.IsDigit))// it accept only int
             {
                 Console.WriteLine("Invalid phone number.");
                 return;
@@ -176,9 +176,9 @@ namespace Flight_Management_System
             int totalSeats;
             Console.Write("Enter total seats: ");
 
-            if (!int.TryParse(Console.ReadLine(), out totalSeats) || totalSeats < 50 || totalSeats == null)
+            if (!int.TryParse(Console.ReadLine(), out totalSeats) || totalSeats < 50)
             {
-                Console.Write("Invalid number. Seats must be 50 or more: ");
+                Console.WriteLine("Invalid number. Seats must be 50 or more.");
                 return;
             }
             int aircraftId = context.Aircrafts.Count + 1;
@@ -213,7 +213,7 @@ namespace Flight_Management_System
 
             if (string.IsNullOrWhiteSpace(phone) ||
                 phone.Length != 8 ||
-                (phone[0] != '9' && phone[0] != '7'))
+                (phone[0] != '9' && phone[0] != '7') || !phone.All(char.IsDigit))
             {
                 Console.WriteLine("Invalid phone number.");
                 return;
@@ -427,8 +427,16 @@ namespace Flight_Management_System
 
             Console.WriteLine("\nAvailable Flights:");
 
-            foreach (Flight f in context.Flights
-                .Where(f => f.status == "Scheduled" && f.availableSeats > 0))
+            var availableFlights = context.Flights
+                .Where(f => f.status == "Scheduled" && f.availableSeats > 0);
+
+            if (!availableFlights.Any())
+            {
+                Console.WriteLine("No available flights.");
+                return;
+            }
+
+            foreach (Flight f in availableFlights)
             {
                 Console.WriteLine($"ID: {f.flightId} | Code: {f.flightCode} | " +
                                   $"From: {f.origin} | To: {f.destination} | " +
@@ -542,6 +550,7 @@ namespace Flight_Management_System
             if (pilot == null)
             {
                 Console.WriteLine("pilot not found.");
+                return ;
             }
 
 
@@ -560,11 +569,9 @@ namespace Flight_Management_System
         {
             Console.WriteLine("\n=== Cancel Flight ===");
 
-            Console.Write("Enter Flight ID: ");
-            int flightId = int.Parse(Console.ReadLine());
-            if (flightId == null)
+            if (!int.TryParse(Console.ReadLine(), out int flightId))
             {
-                Console.WriteLine("flightId is needed.");
+                Console.WriteLine("Flight ID is needed.");
                 return;
             }
 
@@ -596,11 +603,9 @@ namespace Flight_Management_System
         {
             Console.WriteLine("\n=== Passenger Booking History ===");
 
-            Console.Write("Enter Passenger ID: ");
-            int passengerId = int.Parse(Console.ReadLine());
-            if (passengerId == null)
+            if (!int.TryParse(Console.ReadLine(), out int passengerId))
             {
-                Console.WriteLine("Aircraft model needed.");
+                Console.WriteLine("Passenger ID is needed.");
                 return;
             }
             Passenger passenger = context.Passengers
