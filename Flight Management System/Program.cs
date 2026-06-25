@@ -46,7 +46,7 @@ namespace Flight_Management_System
     {
         aircraftId = 1,
         model = "Boeing 737",
-        totalSeats = 180,
+        totalSeats = 150,
         isOperational = true
     },
 
@@ -72,7 +72,7 @@ namespace Flight_Management_System
         departureTime = "10:00",
         flightDuration = 1,
         ticketPrice = 50,
-        availableSeats = 180,
+        availableSeats = 150,
         status = "Scheduled"
     },
      new Flight
@@ -87,8 +87,8 @@ namespace Flight_Management_System
         departureTime = "10:00",
         flightDuration = 3,
         ticketPrice = 50,
-        availableSeats = 180,
-        status = "Confirmed"
+        availableSeats = 150,
+        status = "Scheduled"
     }
 },
             Bookings = new List<Booking>()
@@ -222,9 +222,9 @@ namespace Flight_Management_System
             Console.Write("Enter license number: ");
             string number = Console.ReadLine();
 
-            if (string.IsNullOrWhiteSpace(number))
+            if (string.IsNullOrWhiteSpace(number) || !number.All(char.IsDigit))
             {
-                Console.WriteLine("License number is needed.");
+                Console.WriteLine("License number is needed and must contain digits only.");
                 return;
             }
 
@@ -299,7 +299,7 @@ namespace Flight_Management_System
             Aircraft aircraft = context.Aircrafts
                 .FirstOrDefault(a => a.aircraftId == aircraftId);
 
-            if (aircraft == null)
+            if (aircraft == null || !aircraft.isOperational)
             {
                 Console.WriteLine("Aircraft not found.");
                 return;
@@ -514,9 +514,8 @@ namespace Flight_Management_System
                 return;
             }
 
-
             Booking booking = context.Bookings
-            .FirstOrDefault(b => b.bookingId == bookingId);
+                .FirstOrDefault(b => b.bookingId == bookingId);
 
             if (booking == null)
             {
@@ -524,17 +523,29 @@ namespace Flight_Management_System
                 return;
             }
 
+            if (booking.status == "Cancelled")
+            {
+                Console.WriteLine("Booking is already cancelled.");
+                return;
+            }
+
             Flight flight = context.Flights
-            .FirstOrDefault(f => f.flightId == booking.flightId); //Every booking belongs to a flight.
+                .FirstOrDefault(f => f.flightId == booking.flightId);
+
             if (flight == null)
             {
                 Console.WriteLine("Flight not found.");
                 return;
             }
 
-            flight.availableSeats++; //Increase the value of availableSeats by 1.
-                                     //same as:flight.availableSeats = flight.availableSeats + 1;
+            if (flight.status == "Departed")
+            {
+                Console.WriteLine("Cannot cancel booking. Flight already departed.");
+                return;
+            }
+
             booking.status = "Cancelled";
+            flight.availableSeats++;
 
             Console.WriteLine($"Booking {bookingId} has been cancelled.");
         }
@@ -593,7 +604,7 @@ namespace Flight_Management_System
             }
 
             Flight flight = context.Flights
-            .FirstOrDefault(f => f.flightId == flightId);
+                .FirstOrDefault(f => f.flightId == flightId);
 
             if (flight == null)
             {
@@ -601,8 +612,14 @@ namespace Flight_Management_System
                 return;
             }
 
+            if (flight.status == "Departed")
+            {
+                Console.WriteLine("Cannot cancel a departed flight.");
+                return;
+            }
+
             Pilot pilot = context.Pilots
-            .FirstOrDefault(p => p.pilotId == flight.pilotId);
+                .FirstOrDefault(p => p.pilotId == flight.pilotId);
 
             flight.status = "Cancelled";
 
@@ -611,9 +628,15 @@ namespace Flight_Management_System
                 pilot.isAvailable = true;
             }
 
+            foreach (Booking booking in context.Bookings
+                .Where(b => b.flightId == flightId &&
+                            b.status == "Confirmed"))
+            {
+                booking.status = "Cancelled";
+            }
+
             Console.WriteLine($"Flight {flight.flightCode} has been cancelled.");
         }
-
         // case 10 - Passenger Booking History
         public static void PassengerBookingHistory()
         {
@@ -637,6 +660,11 @@ namespace Flight_Management_System
             }
 
             decimal totalSpent = 0;
+            if (!context.Bookings.Any(b => b.passengerId == passengerId))
+            {
+                Console.WriteLine("No bookings found.");
+                return;
+            }
 
             foreach (Booking b in context.Bookings
                 .Where(b => b.passengerId == passengerId))
@@ -678,6 +706,10 @@ namespace Flight_Management_System
                 b.status == "Confirmed");
 
                 decimal revenue = bookingsCount * flight.ticketPrice;
+                if (aircraft == null)
+                {
+                    continue;
+                }
 
                 double loadFactor = ((double)bookingsCount / aircraft.totalSeats) * 100;
 
