@@ -2,11 +2,11 @@
 {
     public class Passenger
     {
-        public int passengerId { get; set; }   //system generated
-        public string passengerName { get; set; }  //user input
-        public string passengerEmail { get; set; }  //user input
-        public string passengerPhone { get; set; }  //user input
-        public string passportNumber { get; set; }  //user input
-        public string nationality { get; set; }  //user input
+        public int PassengerId { get; set; }   //system generated
+        public string PassengerName { get; set; }  //user input
+        public string PassengerEmail { get; set; }  //user input
+        public string PassengerPhone { get; set; }  //user input
+        public string PassportNumber { get; set; }  //user input
+        public string Nationality { get; set; }  //user input
     }
 }

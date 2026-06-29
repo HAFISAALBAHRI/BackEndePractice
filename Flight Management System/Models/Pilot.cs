@@ -6,11 +6,11 @@ namespace Flight_Management_System.Models
 {
      public class Pilot
         {
-            public int pilotId { get; set; }  //system generated
-        public string pilotName { get; set; }  //user input 
-            public string pilotPhone { get; set; }  // user input
-            public string licenseNumber { get; set; }  //user input 
-            public int flightHours { get; set; }  // user input 
-            public bool isAvailable { get; set; }  //default value = true 
+            public int PilotId { get; set; }  //system generated
+        public string PilotName { get; set; }  //user input 
+            public string PilotPhone { get; set; }  // user input
+            public string LicenseNumber { get; set; }  //user input 
+            public int FlightHours { get; set; }  // user input 
+            public bool IsAvailable { get; set; }  //default value = true 
     }
     }

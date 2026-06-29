@@ -10,85 +10,85 @@ namespace Flight_Management_System
             Passengers = new List<Passenger>() {
             new Passenger
             {
-                passengerId = 1,
-                passengerName = "Ahmed Ali",
-                passengerPhone = "91234567",
-                passengerEmail = "ahmed@gmail.com",
-                passportNumber = "P123456",
-                nationality = "Omani"
+                PassengerId = 1,
+                PassengerName = "Ahmed Ali",
+                PassengerPhone = "91234567",
+                PassengerEmail = "ahmed@gmail.com",
+                PassportNumber = "P123456",
+                Nationality = "Omani"
             }
             },
             Pilots = new List<Pilot>()
             {
     new Pilot
     {
-        pilotId = 1,
-        pilotName = "Ahmed Ali",
-        pilotPhone = "91234567",
-        licenseNumber = "LIC-001",
-        flightHours = 10,
-        isAvailable = true
+        PilotId = 1,
+        PilotName = "Ahmed Ali",
+        PilotPhone = "91234567",
+        LicenseNumber = "LIC-001",
+        FlightHours = 10,
+        IsAvailable = true
     },
 
     new Pilot
     {
-        pilotId = 2,
-        pilotName = "Sara Said",
-        pilotPhone = "92345678",
-        licenseNumber = "LIC-002",
-        flightHours = 20,
-        isAvailable = true
+        PilotId = 2,
+        PilotName = "Sara Said",
+        PilotPhone = "92345678",
+        LicenseNumber = "LIC-002",
+        FlightHours = 20,
+        IsAvailable = true
     }
 },
             Aircrafts = new List<Aircraft>()
             {
     new Aircraft
     {
-        aircraftId = 1,
-        model = "Boeing 737",
-        totalSeats = 150,
-        isOperational = true
+        AircraftId = 1,
+        Model = "Boeing 737",
+        TotalSeats = 150,
+        IsOperational = true
     },
 
     new Aircraft
     {
-        aircraftId = 2,
-        model = "Airbus A320",
-        totalSeats = 150,
-        isOperational = true
+        AircraftId = 2,
+        Model = "Airbus A320",
+        TotalSeats = 150,
+        IsOperational = true
     }
 },
             Flights = new List<Flight>()
             {
     new Flight
     {
-        flightId = 1,
-        flightCode = "OA-1",
-        aircraftId = 1,
-        pilotId = 1,
-        origin = "Muscat",
-        destination = "Dubai",
-        departureDate = "25/06/2026",
-        departureTime = "10:00",
-        flightDuration = 1,
-        ticketPrice = 50,
-        availableSeats = 150,
-        status = "Scheduled"
+        FlightId = 1,
+        FlightCode = "OA-1",
+        AircraftId = 1,
+        PilotId = 1,
+        Origin = "Muscat",
+        Destination = "Dubai",
+        DepartureDate = "25/06/2026",
+        DepartureTime = "10:00",
+        FlightDuration = 1,
+        TicketPrice = 50,
+        AvailableSeats = 150,
+        Status = "Scheduled"
     },
      new Flight
     {
-        flightId = 2,
-        flightCode = "OA-2",
-        aircraftId = 2,
-        pilotId = 2,
-        origin = "Muscat",
-        destination = "Dubai",
-        departureDate = "27/05/2026",
-        departureTime = "10:00",
-        flightDuration = 3,
-        ticketPrice = 50,
-        availableSeats = 150,
-        status = "Scheduled"
+        FlightId = 2,
+        FlightCode = "OA-2",
+        AircraftId = 2,
+        PilotId = 2,
+        Origin = "Muscat",
+        Destination = "Dubai",
+        DepartureDate = "27/05/2026",
+        DepartureTime = "10:00",
+        FlightDuration = 3,
+        TicketPrice = 50,
+        AvailableSeats = 150,
+        Status = "Scheduled"
     }
 },
             Bookings = new List<Booking>()
@@ -151,12 +151,12 @@ namespace Flight_Management_System
 
             context.Passengers.Add(new Passenger
             {
-                passengerId = passengerId,
-                passengerName = name,
-                passengerEmail = email,
-                passengerPhone = phone,
-                passportNumber = passportNumber,
-                nationality = nationality
+                PassengerId = passengerId,
+                PassengerName = name,
+                PassengerEmail = email,
+                PassengerPhone = phone,
+                PassportNumber = passportNumber,
+                Nationality = nationality
             });
 
             Console.WriteLine($"Passenger registered successfully. Assigned ID: {passengerId}");
@@ -185,10 +185,10 @@ namespace Flight_Management_System
 
             context.Aircrafts.Add(new Aircraft
             {
-                aircraftId = aircraftId,
-                model = model,
-                totalSeats = totalSeats,
-                isOperational = true
+                AircraftId = aircraftId,
+                Model = model,
+                TotalSeats = totalSeats,
+                IsOperational = true
             });
 
             Console.WriteLine($"Aircraft added successfully. Assigned ID: {aircraftId}");
@@ -234,12 +234,12 @@ namespace Flight_Management_System
 
             context.Pilots.Add(new Pilot
             {
-                pilotId = pilotId,
-                pilotName = name,
-                pilotPhone = phone,
-                licenseNumber = licenseNumber,
-                flightHours = 0,
-                isAvailable = true
+                PilotId = pilotId,
+                PilotName = name,
+                PilotPhone = phone,
+                LicenseNumber = licenseNumber,
+                FlightHours = 0,
+                IsAvailable = true
             });
 
             Console.WriteLine($"Pilot registered successfully. Assigned ID: {pilotId}");
@@ -251,15 +251,15 @@ namespace Flight_Management_System
 
             foreach (Flight f in context.Flights)
             {
-                Console.WriteLine($"Flight Code: {f.flightCode}" +
-                                  $" | Origin: {f.origin}" +
-                                  $" | Destination: {f.destination}" +
-                                  $" | Date: {f.departureDate}" +
-                                  $" | Time: {f.departureTime}" +
-                                  $" | Duration: {f.flightDuration}" +
-                                  $" | Available Seats: {f.availableSeats}" +
-                                  $" | Ticket Price: {f.ticketPrice}" +
-                                  $" | Status: {f.status}");
+                Console.WriteLine($"Flight Code: {f.FlightCode}" +
+                                  $" | Origin: {f.Origin}" +
+                                  $" | Destination: {f.Destination}" +
+                                  $" | Date: {f.DepartureDate}" +
+                                  $" | Time: {f.DepartureTime}" +
+                                  $" | Duration: {f.FlightDuration}" +
+                                  $" | Available Seats: {f.AvailableSeats}" +
+                                  $" | Ticket Price: {f.TicketPrice}" +
+                                  $" | Status: {f.Status}");
             }
         }
 
@@ -278,7 +278,7 @@ namespace Flight_Management_System
 
             foreach (Aircraft a in context.Aircrafts)
             {
-                Console.WriteLine($"ID: {a.aircraftId} | Model: {a.model} | Seats: {a.totalSeats}");
+                Console.WriteLine($"ID: {a.AircraftId} | Model: {a.Model} | Seats: {a.TotalSeats}");
             }
             Console.Write("Enter Aircraft ID: ");
 
@@ -297,9 +297,9 @@ namespace Flight_Management_System
 
 
             Aircraft aircraft = context.Aircrafts
-                .FirstOrDefault(a => a.aircraftId == aircraftId);
+                .FirstOrDefault(a => a.AircraftId == aircraftId);
 
-            if (aircraft == null || !aircraft.isOperational)
+            if (aircraft == null || !aircraft.IsOperational)
             {
                 Console.WriteLine("Aircraft not found.");
                 return;
@@ -307,7 +307,7 @@ namespace Flight_Management_System
 
             foreach (Pilot p in context.Pilots)
             {
-                Console.WriteLine($"ID: {p.pilotId} | Name: {p.pilotName}");
+                Console.WriteLine($"ID: {p.PilotId} | Name: {p.PilotName}");
             }
 
             Console.Write("Enter Pilot ID: ");
@@ -319,7 +319,7 @@ namespace Flight_Management_System
             }
 
             Pilot pilot = context.Pilots
-                .FirstOrDefault(p => p.pilotId == pilotId);
+                .FirstOrDefault(p => p.PilotId == pilotId);
 
             if (pilot == null)
             {
@@ -396,21 +396,21 @@ namespace Flight_Management_System
 
             context.Flights.Add(new Flight
             {
-                flightId = flightId,
-                flightCode = "OA-" + flightId,
-                aircraftId = aircraftId,
-                pilotId = pilotId,
-                origin = origin,
-                destination = destination,
-                departureDate = departureDate,
-                departureTime = departureTime,
-                flightDuration = flightDuration,
-                ticketPrice = price,
-                availableSeats = aircraft.totalSeats,
-                status = "Scheduled"
+                FlightId = flightId,
+                FlightCode = "OA-" + flightId,
+                AircraftId = aircraftId,
+                PilotId = pilotId,
+                Origin = origin,
+                Destination = destination,
+                DepartureDate = departureDate,
+                DepartureTime = departureTime,
+                FlightDuration = flightDuration,
+                TicketPrice = price,
+                AvailableSeats = aircraft.TotalSeats,
+                Status = "Scheduled"
             });
 
-            pilot.isAvailable = false;
+            pilot.IsAvailable = false;
 
             Console.WriteLine($"Flight scheduled successfully. Flight Code: OA-{flightId}");
         }
@@ -429,7 +429,7 @@ namespace Flight_Management_System
             }
 
             Passenger passenger = context.Passengers
-                .FirstOrDefault(p => p.passengerId == passengerId);
+                .FirstOrDefault(p => p.PassengerId == passengerId);
 
             if (passenger == null)
             {
@@ -440,7 +440,7 @@ namespace Flight_Management_System
             Console.WriteLine("\nAvailable Flights:");
 
             var availableFlights = context.Flights
-                .Where(f => f.status == "Scheduled" && f.availableSeats > 0);
+                .Where(f => f.Status == "Scheduled" && f.AvailableSeats > 0);
 
             if (!availableFlights.Any())
             {
@@ -450,9 +450,9 @@ namespace Flight_Management_System
 
             foreach (Flight f in availableFlights)
             {
-                Console.WriteLine($"ID: {f.flightId} | Code: {f.flightCode} | " +
-                                  $"From: {f.origin} | To: {f.destination} | " +
-                                  $"Seats: {f.availableSeats} | Price: {f.ticketPrice}");
+                Console.WriteLine($"ID: {f.FlightId} | Code: {f.FlightCode} | " +
+                                  $"From: {f.Origin} | To: {f.Destination} | " +
+                                  $"Seats: {f.AvailableSeats} | Price: {f.TicketPrice}");
             }
 
             Console.Write("Enter Flight ID: ");
@@ -464,9 +464,9 @@ namespace Flight_Management_System
             }
 
             Flight flight = context.Flights
-                .FirstOrDefault(f => f.flightId == flightId &&
-                                     f.status == "Scheduled" &&
-                                     f.availableSeats > 0);
+                .FirstOrDefault(f => f.FlightId == flightId &&
+                                     f.Status == "Scheduled" &&
+                                     f.AvailableSeats > 0);
 
             if (flight == null)
             {
@@ -487,16 +487,16 @@ namespace Flight_Management_System
 
             context.Bookings.Add(new Booking
             {
-                bookingId = bookingId,
-                passengerId = passengerId,
-                flightId = flightId,
-                seatNumber = seatNumber,
-                bookingDate = DateTime.Now.ToString("dd/MM/yyyy"),
-                totalPrice = flight.ticketPrice,
-                status = "Confirmed"
+                BookingId = bookingId,
+                PassengerId = passengerId,
+                FlightId = flightId,
+                SeatNumber = seatNumber,
+                BookingDate = DateTime.Now.ToString("dd/MM/yyyy"),
+                TotalPrice = flight.TicketPrice,
+                Status = "Confirmed"
             });
 
-            flight.availableSeats--;
+            flight.AvailableSeats--;
 
             Console.WriteLine($"Booking successful. Booking ID: {bookingId}");
         }
@@ -515,7 +515,7 @@ namespace Flight_Management_System
             }
 
             Booking booking = context.Bookings
-                .FirstOrDefault(b => b.bookingId == bookingId);
+                .FirstOrDefault(b => b.BookingId == bookingId);
 
             if (booking == null)
             {
@@ -523,14 +523,14 @@ namespace Flight_Management_System
                 return;
             }
 
-            if (booking.status == "Cancelled")
+            if (booking.Status == "Cancelled")
             {
                 Console.WriteLine("Booking is already cancelled.");
                 return;
             }
 
             Flight flight = context.Flights
-                .FirstOrDefault(f => f.flightId == booking.flightId);
+                .FirstOrDefault(f => f.FlightId == booking.FlightId);
 
             if (flight == null)
             {
@@ -538,14 +538,14 @@ namespace Flight_Management_System
                 return;
             }
 
-            if (flight.status == "Departed")
+            if (flight.Status == "Departed")
             {
                 Console.WriteLine("Cannot cancel booking. Flight already departed.");
                 return;
             }
 
-            booking.status = "Cancelled";
-            flight.availableSeats++;
+            booking.Status = "Cancelled";
+            flight.AvailableSeats++;
 
             Console.WriteLine($"Booking {bookingId} has been cancelled.");
         }
@@ -564,7 +564,7 @@ namespace Flight_Management_System
             }
 
             Flight flight = context.Flights
-            .FirstOrDefault(f => f.flightId == flightId);
+            .FirstOrDefault(f => f.FlightId == flightId);
 
             if (flight == null)
             {
@@ -572,7 +572,7 @@ namespace Flight_Management_System
                 return;
             }
             Pilot pilot = context.Pilots
-            .FirstOrDefault(p => p.pilotId == flight.pilotId);
+            .FirstOrDefault(p => p.PilotId == flight.PilotId);
             if (pilot == null)
             {
                 Console.WriteLine("pilot not found.");
@@ -580,14 +580,14 @@ namespace Flight_Management_System
             }
 
 
-            flight.status = "Departed";
-            pilot.flightHours += flight.flightDuration;
+            flight.Status = "Departed";
+            pilot.FlightHours += flight.FlightDuration;
 
             // pilot.flightHours++;
 
-            pilot.isAvailable = true;
+            pilot.IsAvailable = true;
 
-            Console.WriteLine($"Flight {flight.flightCode} has departed successfully.");
+            Console.WriteLine($"Flight {flight.FlightCode} has departed successfully.");
         }
 
         // case 9  - Cancel Flight
@@ -604,7 +604,7 @@ namespace Flight_Management_System
             }
 
             Flight flight = context.Flights
-                .FirstOrDefault(f => f.flightId == flightId);
+                .FirstOrDefault(f => f.FlightId == flightId);
 
             if (flight == null)
             {
@@ -612,30 +612,30 @@ namespace Flight_Management_System
                 return;
             }
 
-            if (flight.status == "Departed")
+            if (flight.Status == "Departed")
             {
                 Console.WriteLine("Cannot cancel a departed flight.");
                 return;
             }
 
             Pilot pilot = context.Pilots
-                .FirstOrDefault(p => p.pilotId == flight.pilotId);
+                .FirstOrDefault(p => p.PilotId == flight.PilotId);
 
-            flight.status = "Cancelled";
+            flight.Status = "Cancelled";
 
             if (pilot != null)
             {
-                pilot.isAvailable = true;
+                pilot.IsAvailable = true;
             }
 
             foreach (Booking booking in context.Bookings
-                .Where(b => b.flightId == flightId &&
-                            b.status == "Confirmed"))
+                .Where(b => b.FlightId == flightId &&
+                            b.Status == "Confirmed"))
             {
-                booking.status = "Cancelled";
+                booking.Status = "Cancelled";
             }
 
-            Console.WriteLine($"Flight {flight.flightCode} has been cancelled.");
+            Console.WriteLine($"Flight {flight.FlightCode} has been cancelled.");
         }
         // case 10 - Passenger Booking History
         public static void PassengerBookingHistory()
@@ -651,7 +651,7 @@ namespace Flight_Management_System
             }
 
             Passenger passenger = context.Passengers
-                .FirstOrDefault(p => p.passengerId == passengerId);
+                .FirstOrDefault(p => p.PassengerId == passengerId);
 
             if (passenger == null)
             {
@@ -660,31 +660,31 @@ namespace Flight_Management_System
             }
 
             decimal totalSpent = 0;
-            if (!context.Bookings.Any(b => b.passengerId == passengerId))
+            if (!context.Bookings.Any(b => b.PassengerId == passengerId))
             {
                 Console.WriteLine("No bookings found.");
                 return;
             }
 
             foreach (Booking b in context.Bookings
-                .Where(b => b.passengerId == passengerId))
+                .Where(b => b.PassengerId == passengerId))
             {
                 Flight flight = context.Flights
-                    .FirstOrDefault(f => f.flightId == b.flightId);
+                    .FirstOrDefault(f => f.FlightId == b.FlightId);
 
-                Console.WriteLine($"Booking ID: {b.bookingId}");
-                Console.WriteLine($"Flight Code: {flight.flightCode}");
-                Console.WriteLine($"From: {flight.origin}");
-                Console.WriteLine($"To: {flight.destination}");
-                Console.WriteLine($"Departure Date: {flight.departureDate}");
-                Console.WriteLine($"Seat Number: {b.seatNumber}");
-                Console.WriteLine($"Price Paid: {b.totalPrice}");
-                Console.WriteLine($"Status: {b.status}");
+                Console.WriteLine($"Booking ID: {b.BookingId}");
+                Console.WriteLine($"Flight Code: {flight.FlightCode}");
+                Console.WriteLine($"From: {flight.Origin}");
+                Console.WriteLine($"To: {flight.Destination}");
+                Console.WriteLine($"Departure Date: {flight.DepartureDate}");
+                Console.WriteLine($"Seat Number: {b.SeatNumber}");
+                Console.WriteLine($"Price Paid: {b.TotalPrice}");
+                Console.WriteLine($"Status: {b.Status}");
                 Console.WriteLine("--------------------------------");
 
-                if (b.status == "Confirmed")
+                if (b.Status == "Confirmed")
                 {
-                    totalSpent += b.totalPrice;
+                    totalSpent += b.TotalPrice;
                 }
             }
 
@@ -699,21 +699,21 @@ namespace Flight_Management_System
             foreach (Flight flight in context.Flights)
             {
                 Aircraft aircraft = context.Aircrafts
-                .FirstOrDefault(a => a.aircraftId == flight.aircraftId);
+                .FirstOrDefault(a => a.AircraftId == flight.AircraftId);
 
                 int bookingsCount = context.Bookings
-                .Count(b => b.flightId == flight.flightId &&
-                b.status == "Confirmed");
+                .Count(b => b.FlightId == flight.FlightId &&
+                b.Status == "Confirmed");
 
-                decimal revenue = bookingsCount * flight.ticketPrice;
+                decimal revenue = bookingsCount * flight.TicketPrice;
                 if (aircraft == null)
                 {
                     continue;
                 }
 
-                double loadFactor = ((double)bookingsCount / aircraft.totalSeats) * 100;
+                double loadFactor = ((double)bookingsCount / aircraft.TotalSeats) * 100;
 
-                Console.WriteLine($"Flight Code: {flight.flightCode}");
+                Console.WriteLine($"Flight Code: {flight.FlightCode}");
                 Console.WriteLine($"Bookings: {bookingsCount}");
                 Console.WriteLine($"Revenue: {revenue} OMR");
                 Console.WriteLine($"Load Factor: {loadFactor:F2}%");
