@@ -15,7 +15,7 @@ namespace Flight_Management_System.Models
         public string Destination { get; set; } //user input 
         public string DepartureDate { get; set; }  //user input 
         public string DepartureTime { get; set; }  //user input 
-        public int FlightDuration { get; set; } //user input 
+        public TimeSpan FlightDuration { get; set; } //user input 
         public decimal TicketPrice { get; set; } //user input 
         public int AvailableSeats { get; set; }  //default value = aircraft.totalSeats from list of aircraft
         public string Status { get; set; } // default value "Scheduled"

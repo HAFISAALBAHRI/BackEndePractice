@@ -70,7 +70,7 @@ namespace Flight_Management_System
         Destination = "Dubai",
         DepartureDate = "25/06/2026",
         DepartureTime = "10:00",
-        FlightDuration = 1,
+        FlightDuration = TimeSpan.FromHours(1),
         TicketPrice = 50,
         AvailableSeats = 150,
         Status = "Scheduled"
@@ -85,7 +85,7 @@ namespace Flight_Management_System
         Destination = "Dubai",
         DepartureDate = "27/05/2026",
         DepartureTime = "10:00",
-        FlightDuration = 3,
+        FlightDuration = TimeSpan.FromHours(3),
         TicketPrice = 50,
         AvailableSeats = 150,
         Status = "Scheduled"
@@ -361,16 +361,25 @@ namespace Flight_Management_System
                 Console.WriteLine("Invalid Time.");
                 return;
             }
-
             string departureTime = t.ToString("HH:mm");
 
-            Console.Write("Enter Flight Duration (hours): ");
-            //int flightDuration = int.Parse(Console.ReadLine());
-            if (!int.TryParse(Console.ReadLine(), out int flightDuration) || flightDuration <= 0)
+            Console.Write("Enter Flight Duration (HH:mm): ");
+
+            if (!TimeSpan.TryParse(Console.ReadLine(), out TimeSpan flightDuration) ||
+                flightDuration <= TimeSpan.Zero)
             {
-                Console.WriteLine("Flight Duration must be greater than 0.");
+                Console.WriteLine("Invalid duration. Enter it in HH:mm format (e.g. 01:30).");
                 return;
             }
+            //string departureTime = t.ToString("HH:mm");
+
+            //Console.Write("Enter Flight Duration (hours): ");
+            //int flightDuration = int.Parse(Console.ReadLine());
+            //if (!int.TryParse(Console.ReadLine(), out int flightDuration) || flightDuration <= 0)
+            //{
+            //    Console.WriteLine("Flight Duration must be greater than 0.");
+            //    return;
+            //}
             //If the user enters letters, the program crashes. 
             //if (flightDuration <= 0)
             //{
@@ -578,10 +587,10 @@ namespace Flight_Management_System
                 Console.WriteLine("pilot not found.");
                 return ;
             }
-
+            pilot.FlightHours += (int)flight.FlightDuration.TotalHours;
 
             flight.Status = "Departed";
-            pilot.FlightHours += flight.FlightDuration;
+            //pilot.FlightHours += flight.FlightDuration;
 
             // pilot.flightHours++;
 
