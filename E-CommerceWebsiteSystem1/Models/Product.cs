@@ -40,7 +40,9 @@ namespace E_CommerceWebsiteSystem1.Models
 
         public bool isAvailable { get; set; } = true; // default value
 
+        public Category? Category { get; set; } // relationship ==> many products belong to one category
 
-       
+        public ICollection<Review> Reviews { get; set; } = new List<Review>(); // relationship ==> one product has many reviews
+
     }
 }
