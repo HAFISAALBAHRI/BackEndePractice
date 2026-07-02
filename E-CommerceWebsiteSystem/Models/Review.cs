@@ -1,0 +1,37 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace E_CommerceWebsiteSystem.Models
+{
+    internal class Review
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int reviewId { get; set; } // system generated
+
+        [Required]
+        [ForeignKey("User")]
+        public int userId { get; set; } // foreign key
+
+        [Required]
+        [ForeignKey("Product")]
+        public int productId { get; set; } // foreign key
+
+        [Required]
+        [Range(1, 5)]
+        public int rating { get; set; } // user input
+
+        [MaxLength(500)]
+        public string? comment { get; set; } // user input, optional
+
+        [Required]
+        public DateTime reviewDate { get; set; } // system generated
+
+        public User? User { get; set; } // relationship ==> many reviews are written by one user
+
+        public Product? Product { get; set; } // relationship ==> many reviews belong to one product
+    }
+}
