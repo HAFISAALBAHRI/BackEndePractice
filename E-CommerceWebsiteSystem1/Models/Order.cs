@@ -34,5 +34,7 @@ namespace E_CommerceWebsiteSystem1.Models
         [Required]
         [MaxLength(50)]
         public string paymentMethod { get; set; } = string.Empty; // from list
+
+        public User? User { get; set; } // relationship ==> many orders belong to one user
     }
 }
