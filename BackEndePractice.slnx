@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="E-CommerceSystemEF_Core/E-CommerceSystemEF_Core.csproj" Id="04eac62f-23cc-48e0-9e8a-39e97674c129" />
   <Project Path="E-CommerceWebsiteSystem1/E-CommerceWebsiteSystem1.csproj" Id="47c074e7-ca35-4f1c-9228-3e7517d17f60" />
   <Project Path="Flight Management System/Flight Management System.csproj" Id="def7cf93-1510-4afa-913b-51ee490413d7" />
 </Solution>
