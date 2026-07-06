@@ -13,7 +13,7 @@ namespace E_CommerceWebsiteSystem1.Models
 
         [Required]
         [ForeignKey("User")]
-        public int userId { get; set; } // foreign key
+        public int UserId { get; set; } // foreign key
         public User? User { get; set; }
         [Required]
         public DateTime OrderDate { get; set; } // system generated
@@ -36,5 +36,6 @@ namespace E_CommerceWebsiteSystem1.Models
         public string PaymentMethod { get; set; } = string.Empty; // from list
 
         // relationship ==> many orders belong to one user
+        
     }
 }

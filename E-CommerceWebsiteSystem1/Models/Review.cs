@@ -10,25 +10,25 @@ namespace E_CommerceWebsiteSystem1.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int reviewId { get; set; } // system generated
+        public int ReviewId { get; set; } // system generated
 
         [Required]
         [ForeignKey("User")]
-        public int userId { get; set; } // foreign key
+        public int UserId { get; set; } // foreign key
 
         [Required]
         [ForeignKey("Product")]
-        public int productId { get; set; } // foreign key
+        public int ProductId { get; set; } // foreign key
 
         [Required]
         [Range(1, 5)]
-        public int rating { get; set; } // user input
+        public int Rating { get; set; } // user input
 
         [MaxLength(500)]
-        public string? comment { get; set; } // user input, optional
+        public string? Comment { get; set; } // user input, optional
 
         [Required]
-        public DateTime reviewDate { get; set; } // system generated
+        public DateTime ReviewDate { get; set; } // system generated
         public User? User { get; set; } // relationship ==> many reviews are written by one user
 
         public Product? Product { get; set; } // relationship ==> many reviews belong to one product

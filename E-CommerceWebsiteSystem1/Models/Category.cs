@@ -10,17 +10,17 @@ namespace E_CommerceWebsiteSystem1.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int categoryId { get; set; } // system generated
+        public int CategoryId { get; set; } // system generated
 
         [Required]
         [MaxLength(100)]
-        public string categoryName { get; set; } = string.Empty; // user input, unique
+        public string CategoryName { get; set; } = string.Empty; // user input, unique
 
         [MaxLength(500)]
-        public string? description { get; set; } // user input, optional
+        public string? Description { get; set; } // user input, optional
 
         [MaxLength(300)]
-        public string? imageUrl { get; set; } // user input, optional
+        public string? ImageUrl { get; set; } // user input, optional
         public ICollection<Product> Products { get; set; } = new List<Product>(); // relationship ==> one category has many products
     }
 }
