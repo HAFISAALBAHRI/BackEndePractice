@@ -400,6 +400,31 @@ namespace E_CommerceWebsiteSystem1
 
             Console.WriteLine($"\nReview ID {reviewId} deleted successfully.");
         }
+        //case 8 
+        static void ViewAllProducts()
+        {
+            Console.WriteLine("========== Product Catalogue ==========\n");
+
+            // Step 1: Retrieve all products
+            var products = context.Products.ToList();
+
+            if (!products.Any())
+            {
+                Console.WriteLine("No products found in the catalogue.");
+                return;
+            }
+
+            // Step 2: Display product details
+            foreach (var p in products)
+            {
+                Console.WriteLine($"ID: {p.ProductId}");
+                Console.WriteLine($"Name: {p.ProductName}");
+                Console.WriteLine($"Price: {p.Price:C}");
+                Console.WriteLine($"Stock: {p.StockQuantity}");
+                Console.WriteLine($"Available: {(p.IsAvailable ? "Yes" : "No")}");
+                Console.WriteLine("--------------------------------------");
+            }
+        }
 
         static void Main(string[] args)
         {
@@ -464,9 +489,9 @@ namespace E_CommerceWebsiteSystem1
                         DeleteReview();
                         break;
 
-                    //case 8:
-                    //    ViewAllProducts();
-                    //    break;
+                    case 8:
+                        ViewAllProducts();
+                        break;
 
                     //case 9:
                     //    FilterProducts();
