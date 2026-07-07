@@ -313,6 +313,67 @@ namespace E_CommerceWebsiteSystem1
             Console.WriteLine($"\nOrder placed successfully! Order ID: {order.OrderId}, Total: {order.TotalAmount:C}");
         }
 
+        static void WriteReview()
+        {
+            Console.WriteLine("========== Write Product Review ==========\n");
+
+            // Step 1: Display available users
+            var users = context.Users.ToList();
+            Console.WriteLine("Available Users:");
+            foreach (var u in users)
+            {
+                Console.WriteLine($"{u.UserId} - {u.Username}");
+            }
+
+            Console.Write("Enter User ID: ");
+            int userId = int.Parse(Console.ReadLine());
+            var user = context.Users.FirstOrDefault(u => u.UserId == userId);
+            if (user == null)
+            {
+                Console.WriteLine("User not found.");
+                return;
+            }
+
+            // Step 2: Display available products
+            var products = context.Products.ToList();
+            Console.WriteLine("\nAvailable Products:");
+            foreach (var p in products)
+            {
+                Console.WriteLine($"{p.ProductId} - {p.ProductName}");
+            }
+
+            Console.Write("Enter Product ID: ");
+            int productId = int.Parse(Console.ReadLine());
+            var product = context.Products.FirstOrDefault(p => p.ProductId == productId);
+            if (product == null)
+            {
+                Console.WriteLine("Product not found.");
+                return;
+            }
+
+            // Step 3: Read review details
+            Console.Write("Enter Rating (1-5): ");
+            int rating = int.Parse(Console.ReadLine());
+
+            Console.Write("Enter Comment (optional): ");
+            string comment = Console.ReadLine();
+
+            // Step 4: Create Review object
+            Review review = new Review
+            {
+                UserId = userId,
+                ProductId = productId,
+                Rating = rating,
+                Comment = comment,
+                ReviewDate = DateTime.Now
+            };
+
+            // Step 5: Save to DB
+            context.Reviews.Add(review);
+            context.SaveChanges();
+
+            Console.WriteLine($"\nReview submitted successfully for product '{product.ProductName}' by user '{user.Username}'.");
+        }
 
         static void Main(string[] args)
         {
@@ -360,9 +421,9 @@ namespace E_CommerceWebsiteSystem1
                         PlaceOrder();
                         break;
 
-                    //case 4:
-                    //    WriteReview();
-                    //    break;
+                    case 4:
+                        WriteReview();
+                        break;
 
                     //case 5:
                     //    UpdateProduct();
