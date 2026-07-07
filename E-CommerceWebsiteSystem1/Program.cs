@@ -375,6 +375,50 @@ namespace E_CommerceWebsiteSystem1
 
             Console.WriteLine($"\nReview ID {review.ReviewId} Review submitted successfully for product '{product.ProductName}' by user '{user.Username}'.");
         }
+        //case 5
+        static void UpdateProduct()
+        {
+            Console.WriteLine("========== Update Product ==========\n");
+
+            // Step 1: Ask for Product ID
+            Console.Write("Enter Product ID: ");
+            int productId = int.Parse(Console.ReadLine());
+
+            // Step 2: Fetch product from DB
+            var product = context.Products.FirstOrDefault(p => p.ProductId == productId);
+
+            if (product == null)
+            {
+                Console.WriteLine("Product not found.");
+                return;
+            }
+
+            // Step 3: Ask for new values
+            Console.Write("Enter New Price: ");
+            if (!decimal.TryParse(Console.ReadLine(), out decimal newPrice) || newPrice <= 0)
+            {
+                Console.WriteLine("Invalid price.");
+                return;
+            }
+
+            Console.Write("Is Available? (true/false): ");
+            if (!bool.TryParse(Console.ReadLine(), out bool isAvailable))
+            {
+                Console.WriteLine("Invalid availability input.");
+                return;
+            }
+
+            // Step 4: Update fields
+            product.Price = newPrice;
+            product.IsAvailable = isAvailable;
+
+            // Step 5: Save changes
+            context.SaveChanges();
+
+            Console.WriteLine($"\nProduct ID {product.ProductId} updated successfully.");
+            Console.WriteLine($"New Price: {product.Price:C}, Available: {(product.IsAvailable ? "Yes" : "No")}");
+        }
+
         //case 7
         static void DeleteReview()
         {
@@ -477,9 +521,9 @@ namespace E_CommerceWebsiteSystem1
                         WriteReview();
                         break;
 
-                    //case 5:
-                    //    UpdateProduct();
-                    //    break;
+                    case 5:
+                        UpdateProduct();
+                        break;
 
                     //case 6:
                     //    CancelOrder();
