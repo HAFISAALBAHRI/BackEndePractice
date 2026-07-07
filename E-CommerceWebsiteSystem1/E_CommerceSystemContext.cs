@@ -6,7 +6,7 @@ using System.Text;
 
 namespace E_CommerceWebsiteSystem1
 {
-    internal class ECommerceContext : DbContext
+    public class ECommerceContext : DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -20,7 +20,7 @@ namespace E_CommerceWebsiteSystem1
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlServer("Server=localhost;Database=ECommerceDB;Trusted_Connection=True;TrustServerCertificate=True;");
+            options.UseSqlServer("Server=CODELINE;Database=ECommerceDB;Trusted_Connection=True;TrustServerCertificate=True;");
         }
     }
 }

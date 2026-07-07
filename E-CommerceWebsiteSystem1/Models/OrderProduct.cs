@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace E_CommerceWebsiteSystem1.Models
 {
-    internal class OrderProduct
+    public class OrderProduct
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
