@@ -18,6 +18,9 @@ namespace E_CommerceWebsiteSystem1
 
         public DbSet<Review> Reviews { get; set; }
 
-
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        {
+            options.UseSqlServer("Server=localhost;Database=ECommerceDB;Trusted_Connection=True;TrustServerCertificate=True;");
+        }
     }
 }
