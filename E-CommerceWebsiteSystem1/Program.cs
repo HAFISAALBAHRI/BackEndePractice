@@ -168,75 +168,60 @@ namespace E_CommerceWebsiteSystem1
         {
             Console.WriteLine("========== Add New Product ==========\n");
 
-            Console.Write("Enter Product Name: ");
-            string productName = Console.ReadLine();
-            //string productName = "";
-            int attempts = 0;
-
-            while (attempts < 3)
+            // Step 1: Display all categories
+            var categories = context.Categories.ToList();
+            if (!categories.Any())
             {
-                Console.Write("Enter Product Name: ");
-                productName = Console.ReadLine()?.Trim();
-
-                if (string.IsNullOrWhiteSpace(productName))
-                {
-                    attempts++;
-                    Console.WriteLine($"Product Name cannot be empty. Attempts left: {3 - attempts}");
-                    continue;
-                }
-
-                Product existingProduct = context.Products
-                    .FirstOrDefault(p => p.ProductName == productName);
-
-                if (existingProduct != null)
-                {
-                    attempts++;
-                    Console.WriteLine($"Product already exists. Attempts left: {3 - attempts}");
-                    continue;
-                }
-
-                break;
-            }
-
-            if (attempts == 3)
-            {
-                Console.WriteLine("Too many invalid attempts. Returning to Main Menu...");
+                Console.WriteLine("No categories found. Please add categories first.");
                 return;
             }
-            Console.Write("Enter Description:   (Optional)");
+
+            Console.WriteLine("Available Categories:");
+            foreach (var c in categories)
+            {
+                Console.WriteLine($"{c.CategoryId} - {c.CategoryName}");
+            }
+
+            // Step 2: Select category
+            Console.Write("Enter Category ID: ");
+            if (!int.TryParse(Console.ReadLine(), out int categoryId))
+            {
+                Console.WriteLine("Invalid input.");
+                return;
+            }
+
+            var category = context.Categories.FirstOrDefault(c => c.CategoryId == categoryId);
+            if (category == null)
+            {
+                Console.WriteLine("Category not found.");
+                return;
+            }
+
+            // Step 3: Read product details
+            Console.Write("Enter Product Name: ");
+            string productName = Console.ReadLine();
+
+            Console.Write("Enter Description (optional): ");
             string description = Console.ReadLine();
 
             Console.Write("Enter Price: ");
-            decimal price = decimal.Parse(Console.ReadLine());
-
-            attempts = 0;
-
-            while (attempts < 3)
+            if (!decimal.TryParse(Console.ReadLine(), out decimal price) || price <= 0)
             {
-                Console.Write("Enter Price: ");
-
-                if (decimal.TryParse(Console.ReadLine(), out price) && price > 0)
-                    break;
-
-                attempts++;
-                Console.WriteLine($"Invalid price. Attempts left: {3 - attempts}");
-            }
-
-            if (attempts == 3)
-            {
-                Console.WriteLine("Too many invalid attempts. Returning to Main Menu...");
+                Console.WriteLine("Invalid price.");
                 return;
             }
-            Console.Write("Enter Stock Quantity: ");
-            int stockQuantity = int.Parse(Console.ReadLine());
 
-            Console.Write("Enter Image URL: ");
+            Console.Write("Enter Stock Quantity: ");
+            if (!int.TryParse(Console.ReadLine(), out int stockQuantity) || stockQuantity < 0)
+            {
+                Console.WriteLine("Invalid stock quantity.");
+                return;
+            }
+
+            Console.Write("Enter Image URL (optional): ");
             string imageUrl = Console.ReadLine();
 
-            Console.Write("Enter Category ID: ");
-            int categoryId = int.Parse(Console.ReadLine());
-
-            // Create the object here
+            // Step 4: Create product object
             Product product = new Product
             {
                 ProductName = productName,
@@ -249,11 +234,104 @@ namespace E_CommerceWebsiteSystem1
                 IsAvailable = stockQuantity > 0
             };
 
+            // Step 5: Save to DB
             context.Products.Add(product);
             context.SaveChanges();
 
-            Console.WriteLine("\nProduct added successfully.");
+            Console.WriteLine($"\nProduct '{product.ProductName}' added successfully to category '{category.CategoryName}'.");
         }
+
+
+        //static void AddProduct()
+        //{
+        //    Console.WriteLine("========== Add New Product ==========\n");
+
+        //    Console.Write("Enter Product Name: ");
+        //    string productName = Console.ReadLine();
+        //    //string productName = "";
+        //    int attempts = 0;
+
+        //    while (attempts < 3)
+        //    {
+        //        Console.Write("Enter Product Name: ");
+        //        productName = Console.ReadLine()?.Trim();
+
+        //        if (string.IsNullOrWhiteSpace(productName))
+        //        {
+        //            attempts++;
+        //            Console.WriteLine($"Product Name cannot be empty. Attempts left: {3 - attempts}");
+        //            continue;
+        //        }
+
+        //        Product existingProduct = context.Products
+        //            .FirstOrDefault(p => p.ProductName == productName);
+
+        //        if (existingProduct != null)
+        //        {
+        //            attempts++;
+        //            Console.WriteLine($"Product already exists. Attempts left: {3 - attempts}");
+        //            continue;
+        //        }
+
+        //        break;
+        //    }
+
+        //    if (attempts == 3)
+        //    {
+        //        Console.WriteLine("Too many invalid attempts. Returning to Main Menu...");
+        //        return;
+        //    }
+        //    Console.Write("Enter Description:   (Optional)");
+        //    string description = Console.ReadLine();
+
+        //    Console.Write("Enter Price: ");
+        //    decimal price = decimal.Parse(Console.ReadLine());
+
+        //    attempts = 0;
+
+        //    while (attempts < 3)
+        //    {
+        //        Console.Write("Enter Price: ");
+
+        //        if (decimal.TryParse(Console.ReadLine(), out price) && price > 0)
+        //            break;
+
+        //        attempts++;
+        //        Console.WriteLine($"Invalid price. Attempts left: {3 - attempts}");
+        //    }
+
+        //    if (attempts == 3)
+        //    {
+        //        Console.WriteLine("Too many invalid attempts. Returning to Main Menu...");
+        //        return;
+        //    }
+        //    Console.Write("Enter Stock Quantity: ");
+        //    int stockQuantity = int.Parse(Console.ReadLine());
+
+        //    Console.Write("Enter Image URL: ");
+        //    string imageUrl = Console.ReadLine();
+
+        //    Console.Write("Enter Category ID: ");
+        //    int categoryId = int.Parse(Console.ReadLine());
+
+        //    // Create the object here
+        //    Product product = new Product
+        //    {
+        //        ProductName = productName,
+        //        Description = description,
+        //        Price = price,
+        //        StockQuantity = stockQuantity,
+        //        ImageUrl = imageUrl,
+        //        CategoryId = categoryId,
+        //        CreatedAt = DateTime.Now,
+        //        IsAvailable = stockQuantity > 0
+        //    };
+
+        //    context.Products.Add(product);
+        //    context.SaveChanges();
+
+        //    Console.WriteLine("\nProduct added successfully.");
+        //}
         static void Main(string[] args)
         {
             bool exit = false;
