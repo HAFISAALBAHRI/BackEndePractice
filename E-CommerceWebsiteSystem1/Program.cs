@@ -78,21 +78,26 @@ namespace E_CommerceWebsiteSystem1
 
             Console.Write("Enter Full Name: ");
             string fullName = Console.ReadLine();
-            attempts = 0;
+            int attemptss = 0;
 
-            while (attempts < 3)
+            while (attemptss < 3)
             {
-                Console.Write("Enter Full Name: ");
-                fullName = Console.ReadLine();
+                Console.Write("Enter Full Name (First Name and Family Name): ");
+                fullName = Console.ReadLine()?.Trim();
 
                 if (!string.IsNullOrWhiteSpace(fullName))
-                    break;
+                {
+                    string[] names = fullName.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-                attempts++;
-                Console.WriteLine($"Invalid Name! Attempts left: {3 - attempts}");
+                    if (names.Length >= 2)
+                        break;
+                }
+
+                attemptss++;
+                Console.WriteLine($"Please enter your first name and family name. Attempts left: {3 - attemptss}");
             }
 
-            if (attempts == 3)
+            if (attemptss == 3)
             {
                 Console.WriteLine("Too many invalid attempts. Returning to Main Menu...");
                 return;
