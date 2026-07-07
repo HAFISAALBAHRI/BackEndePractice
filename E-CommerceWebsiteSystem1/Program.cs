@@ -103,10 +103,10 @@ namespace E_CommerceWebsiteSystem1
                 return;
             }
 
-            Console.Write("Enter Phone Number: ");
+            Console.Write("Enter Phone Number:  (optional) ");
             string phoneNumber = Console.ReadLine();
 
-            Console.Write("Enter Address: ");
+            Console.Write("Enter Address: (optional)");
             string address = Console.ReadLine();
 
             // Check if username already exists
