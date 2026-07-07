@@ -372,7 +372,7 @@ namespace E_CommerceWebsiteSystem1
             context.Reviews.Add(review);
             context.SaveChanges();
 
-            Console.WriteLine($"\nReview submitted successfully for product '{product.ProductName}' by user '{user.Username}'.");
+            Console.WriteLine($"\nReview ID {review.ReviewId} Review submitted successfully for product '{product.ProductName}' by user '{user.Username}'.");
         }
 
         static void DeleteReview()
