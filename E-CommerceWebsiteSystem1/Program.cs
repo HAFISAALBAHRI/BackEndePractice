@@ -245,7 +245,6 @@ namespace E_CommerceWebsiteSystem1
         {
             Console.WriteLine("========== Place Order ==========\n");
 
-            // Step 1: Ask for User ID
             Console.Write("Enter User ID: ");
             int userId = int.Parse(Console.ReadLine());
 
@@ -256,7 +255,6 @@ namespace E_CommerceWebsiteSystem1
                 return;
             }
 
-            // Step 2: Create and save the Order record
             Order order = new Order
             {
                 UserId = userId,
@@ -265,12 +263,11 @@ namespace E_CommerceWebsiteSystem1
                 TotalAmount = 0
             };
             context.Orders.Add(order);
-            context.SaveChanges(); // orderId is now generated
+            context.SaveChanges();
 
             decimal totalAmount = 0;
             bool addMore = true;
 
-            // Step 3: Add multiple products
             while (addMore)
             {
                 Console.Write("Enter Product ID: ");
@@ -288,22 +285,21 @@ namespace E_CommerceWebsiteSystem1
 
                 if (quantity > product.StockQuantity)
                 {
-                    Console.WriteLine("Not enough stock available.");
+                    Console.WriteLine("Not enough stock.");
                     continue;
                 }
 
-                // Step 4: Create OrderItem record
-                OrderProduct item = new OrderProduct
+                // Create OrderProduct (bridge entity)
+                OrderProduct orderProduct = new OrderProduct
                 {
                     OrderId = order.OrderId,
                     ProductId = productId,
                     Quantity = quantity,
-                    Price = product.Price
+                    UnitPrice = product.Price
                 };
 
-                context.OrderProducts.Add(item);
+                context.OrderProducts.Add(orderProduct);
 
-                // Step 5: Update totals and stock
                 totalAmount += product.Price * quantity;
                 product.StockQuantity -= quantity;
 
@@ -311,11 +307,10 @@ namespace E_CommerceWebsiteSystem1
                 addMore = Console.ReadLine()?.ToLower() == "y";
             }
 
-            // Step 6: Save all changes
             order.TotalAmount = totalAmount;
             context.SaveChanges();
 
-            Console.WriteLine($"\nOrder placed successfully! Order ID: {order.OrderId}, Total Amount: {order.TotalAmount:C}");
+            Console.WriteLine($"\nOrder placed successfully! Order ID: {order.OrderId}, Total: {order.TotalAmount:C}");
         }
 
 
@@ -361,9 +356,9 @@ namespace E_CommerceWebsiteSystem1
                         AddProduct();
                         break;
 
-                    //case 3:
-                    //    PlaceOrder();
-                    //    break;
+                    case 3:
+                        PlaceOrder();
+                        break;
 
                     //case 4:
                     //    WriteReview();
