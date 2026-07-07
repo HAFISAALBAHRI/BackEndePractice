@@ -1,7 +1,73 @@
-﻿namespace E_CommerceWebsiteSystem1
+﻿using E_CommerceWebsiteSystem1.Models;
+using Microsoft.EntityFrameworkCore;
+
+
+namespace E_CommerceWebsiteSystem1
 {
+  
     internal class Program
     {
+        static ECommerceContext context = new ECommerceContext();
+        static void RegisterUser()
+        {
+            Console.WriteLine("========== Register New User ==========\n");
+
+            Console.Write("Enter Username: ");
+            string username = Console.ReadLine();
+
+            Console.Write("Enter Email: ");
+            string email = Console.ReadLine();
+
+            Console.Write("Enter Password: ");
+            string password = Console.ReadLine();
+
+            Console.Write("Enter Full Name: ");
+            string fullName = Console.ReadLine();
+
+            Console.Write("Enter Phone Number: ");
+            string phoneNumber = Console.ReadLine();
+
+            Console.Write("Enter Address: ");
+            string address = Console.ReadLine();
+
+            // Check if username already exists
+            User existingUser = context.Users
+                .FirstOrDefault(u => u.Username == username);
+
+            if (existingUser != null)
+            {
+                Console.WriteLine("\nUsername already exists.");
+                return;
+            }
+
+            // Check if email already exists
+            existingUser = context.Users
+                .FirstOrDefault(u => u.Email == email);
+
+            if (existingUser != null)
+            {
+                Console.WriteLine("\nEmail already exists.");
+                return;
+            }
+
+            User newUser = new User
+            {
+                Username = username,
+                Email = email,
+                PasswordHash = password,
+                FullName = fullName,
+                PhoneNumber = phoneNumber,
+                Address = address,
+                RegistrationDate = DateTime.Now,
+                IsActive = true
+            };
+
+            context.Users.Add(newUser);
+            context.SaveChanges();
+
+            Console.WriteLine("\nUser registered successfully.");
+            Console.WriteLine($"User ID: {newUser.UserId}");
+        }
         static void Main(string[] args)
         {
             bool exit = false;
@@ -36,9 +102,9 @@
 
                 switch (option)
                 {
-                    //case 1:
-                    //    RegisterUser();
-                    //    break;
+                    case 1:
+                        RegisterUser();
+                        break;
 
                     //case 2:
                     //    AddProduct();
