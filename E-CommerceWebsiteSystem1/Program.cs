@@ -418,6 +418,60 @@ namespace E_CommerceWebsiteSystem1
             Console.WriteLine($"\nProduct ID {product.ProductId} updated successfully.");
             Console.WriteLine($"New Price: {product.Price:C}, Available: {(product.IsAvailable ? "Yes" : "No")}");
         }
+        //case 6
+        static void CancelOrder()
+        {
+            Console.WriteLine("========== Cancel Order ==========\n");
+
+            // Step 1: Ask for Order ID
+            Console.Write("Enter Order ID: ");
+            int orderId = int.Parse(Console.ReadLine());
+
+            // Step 2: Fetch the order
+            var order = context.Orders.FirstOrDefault(o => o.OrderId == orderId);
+
+            if (order == null)
+            {
+                Console.WriteLine("Order not found.");
+                return;
+            }
+
+            if (order.status != "Pending")
+            {
+                Console.WriteLine("Only pending orders can be cancelled.");
+                return;
+            }
+
+            // Step 3: Load all OrderProducts for this order
+            var orderProducts = context.OrderProducts
+                .Where(op => op.OrderId == orderId)
+                .ToList();
+
+            if (!orderProducts.Any())
+            {
+                Console.WriteLine("No products found in this order.");
+                return;
+            }
+
+            // Step 4: Restore stock for each product
+            foreach (var op in orderProducts)
+            {
+                var product = context.Products.FirstOrDefault(p => p.ProductId == op.ProductId);
+                if (product != null)
+                {
+                    product.StockQuantity += op.Quantity;
+                    product.IsAvailable = product.StockQuantity > 0;
+                }
+            }
+
+            // Step 5: Update order status
+            order.status = "Cancelled";
+
+            // Step 6: Save changes
+            context.SaveChanges();
+
+            Console.WriteLine($"\nOrder ID {order.OrderId} has been cancelled. Stock quantities restored.");
+        }
 
         //case 7
         static void DeleteReview()
@@ -525,9 +579,9 @@ namespace E_CommerceWebsiteSystem1
                         UpdateProduct();
                         break;
 
-                    //case 6:
-                    //    CancelOrder();
-                    //    break;
+                    case 6:
+                        CancelOrder();
+                        break;
 
                     case 7:
                         DeleteReview();
