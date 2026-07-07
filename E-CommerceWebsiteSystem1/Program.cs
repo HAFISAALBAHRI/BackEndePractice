@@ -35,7 +35,25 @@ namespace E_CommerceWebsiteSystem1
             }
             Console.Write("Enter Email: ");
             string email = Console.ReadLine();
+            attempts = 0;
 
+            while (attempts < 3)
+            {
+                Console.Write("Enter Email: ");
+                email = Console.ReadLine();
+
+                if (!string.IsNullOrWhiteSpace(email) && email.Contains("@") && email.Contains("."))
+                    break;
+
+                attempts++;
+                Console.WriteLine($"Invalid Email! Attempts left: {3 - attempts}");
+            }
+
+            if (attempts == 3)
+            {
+                Console.WriteLine("Too many invalid attempts. Returning to Main Menu...");
+                return;
+            }
             Console.Write("Enter Password: ");
             string password = Console.ReadLine();
 
