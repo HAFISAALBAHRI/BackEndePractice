@@ -25,8 +25,10 @@ namespace E_CommerceWebsiteSystem1.Models
         [Range(1, 999)]
         public int Quantity { get; set; } // user input
                                           //relations
-        
 
-       
+        [Required]
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal UnitPrice { get; set; } // price at time of order
+
     }
 }

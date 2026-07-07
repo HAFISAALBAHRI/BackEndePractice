@@ -241,97 +241,84 @@ namespace E_CommerceWebsiteSystem1
             Console.WriteLine($"\nProduct '{product.ProductName}' added successfully to category '{category.CategoryName}'.");
         }
 
+        static void PlaceOrder()
+        {
+            Console.WriteLine("========== Place Order ==========\n");
 
-        //static void AddProduct()
-        //{
-        //    Console.WriteLine("========== Add New Product ==========\n");
+            // Step 1: Ask for User ID
+            Console.Write("Enter User ID: ");
+            int userId = int.Parse(Console.ReadLine());
 
-        //    Console.Write("Enter Product Name: ");
-        //    string productName = Console.ReadLine();
-        //    //string productName = "";
-        //    int attempts = 0;
+            var user = context.Users.FirstOrDefault(u => u.UserId == userId);
+            if (user == null)
+            {
+                Console.WriteLine("User not found.");
+                return;
+            }
 
-        //    while (attempts < 3)
-        //    {
-        //        Console.Write("Enter Product Name: ");
-        //        productName = Console.ReadLine()?.Trim();
+            // Step 2: Create and save the Order record
+            Order order = new Order
+            {
+                UserId = userId,
+                OrderDate = DateTime.Now,
+                status = "Pending",
+                TotalAmount = 0
+            };
+            context.Orders.Add(order);
+            context.SaveChanges(); // orderId is now generated
 
-        //        if (string.IsNullOrWhiteSpace(productName))
-        //        {
-        //            attempts++;
-        //            Console.WriteLine($"Product Name cannot be empty. Attempts left: {3 - attempts}");
-        //            continue;
-        //        }
+            decimal totalAmount = 0;
+            bool addMore = true;
 
-        //        Product existingProduct = context.Products
-        //            .FirstOrDefault(p => p.ProductName == productName);
+            // Step 3: Add multiple products
+            while (addMore)
+            {
+                Console.Write("Enter Product ID: ");
+                int productId = int.Parse(Console.ReadLine());
 
-        //        if (existingProduct != null)
-        //        {
-        //            attempts++;
-        //            Console.WriteLine($"Product already exists. Attempts left: {3 - attempts}");
-        //            continue;
-        //        }
+                var product = context.Products.FirstOrDefault(p => p.ProductId == productId);
+                if (product == null || !product.IsAvailable)
+                {
+                    Console.WriteLine("Invalid product.");
+                    continue;
+                }
 
-        //        break;
-        //    }
+                Console.Write("Enter Quantity: ");
+                int quantity = int.Parse(Console.ReadLine());
 
-        //    if (attempts == 3)
-        //    {
-        //        Console.WriteLine("Too many invalid attempts. Returning to Main Menu...");
-        //        return;
-        //    }
-        //    Console.Write("Enter Description:   (Optional)");
-        //    string description = Console.ReadLine();
+                if (quantity > product.StockQuantity)
+                {
+                    Console.WriteLine("Not enough stock available.");
+                    continue;
+                }
 
-        //    Console.Write("Enter Price: ");
-        //    decimal price = decimal.Parse(Console.ReadLine());
+                // Step 4: Create OrderItem record
+                OrderProduct item = new OrderProduct
+                {
+                    OrderId = order.OrderId,
+                    ProductId = productId,
+                    Quantity = quantity,
+                    Price = product.Price
+                };
 
-        //    attempts = 0;
+                context.OrderProducts.Add(item);
 
-        //    while (attempts < 3)
-        //    {
-        //        Console.Write("Enter Price: ");
+                // Step 5: Update totals and stock
+                totalAmount += product.Price * quantity;
+                product.StockQuantity -= quantity;
 
-        //        if (decimal.TryParse(Console.ReadLine(), out price) && price > 0)
-        //            break;
+                Console.Write("Add another product? (y/n): ");
+                addMore = Console.ReadLine()?.ToLower() == "y";
+            }
 
-        //        attempts++;
-        //        Console.WriteLine($"Invalid price. Attempts left: {3 - attempts}");
-        //    }
+            // Step 6: Save all changes
+            order.TotalAmount = totalAmount;
+            context.SaveChanges();
 
-        //    if (attempts == 3)
-        //    {
-        //        Console.WriteLine("Too many invalid attempts. Returning to Main Menu...");
-        //        return;
-        //    }
-        //    Console.Write("Enter Stock Quantity: ");
-        //    int stockQuantity = int.Parse(Console.ReadLine());
+            Console.WriteLine($"\nOrder placed successfully! Order ID: {order.OrderId}, Total Amount: {order.TotalAmount:C}");
+        }
 
-        //    Console.Write("Enter Image URL: ");
-        //    string imageUrl = Console.ReadLine();
 
-        //    Console.Write("Enter Category ID: ");
-        //    int categoryId = int.Parse(Console.ReadLine());
-
-        //    // Create the object here
-        //    Product product = new Product
-        //    {
-        //        ProductName = productName,
-        //        Description = description,
-        //        Price = price,
-        //        StockQuantity = stockQuantity,
-        //        ImageUrl = imageUrl,
-        //        CategoryId = categoryId,
-        //        CreatedAt = DateTime.Now,
-        //        IsAvailable = stockQuantity > 0
-        //    };
-
-        //    context.Products.Add(product);
-        //    context.SaveChanges();
-
-        //    Console.WriteLine("\nProduct added successfully.");
-        //}
         static void Main(string[] args)
         {
             bool exit = false;
