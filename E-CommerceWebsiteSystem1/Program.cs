@@ -168,9 +168,41 @@ namespace E_CommerceWebsiteSystem1
         {
             Console.WriteLine("========== Add New Product ==========\n");
 
-            Console.Write("Enter Product Name: ");
-            string productName = Console.ReadLine();
+            //Console.Write("Enter Product Name: ");
+            //string productName = Console.ReadLine();
+            string productName = "";
+            int attempts = 0;
 
+            while (attempts < 3)
+            {
+                Console.Write("Enter Product Name: ");
+                productName = Console.ReadLine()?.Trim();
+
+                if (string.IsNullOrWhiteSpace(productName))
+                {
+                    attempts++;
+                    Console.WriteLine($"Product Name cannot be empty. Attempts left: {3 - attempts}");
+                    continue;
+                }
+
+                Product existingProduct = context.Products
+                    .FirstOrDefault(p => p.ProductName == productName);
+
+                if (existingProduct != null)
+                {
+                    attempts++;
+                    Console.WriteLine($"Product already exists. Attempts left: {3 - attempts}");
+                    continue;
+                }
+
+                break;
+            }
+
+            if (attempts == 3)
+            {
+                Console.WriteLine("Too many invalid attempts. Returning to Main Menu...");
+                return;
+            }
             Console.Write("Enter Description: ");
             string description = Console.ReadLine();
 
