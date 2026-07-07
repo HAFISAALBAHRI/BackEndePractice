@@ -168,9 +168,9 @@ namespace E_CommerceWebsiteSystem1
         {
             Console.WriteLine("========== Add New Product ==========\n");
 
-            //Console.Write("Enter Product Name: ");
-            //string productName = Console.ReadLine();
-            string productName = "";
+            Console.Write("Enter Product Name: ");
+            string productName = Console.ReadLine();
+            //string productName = "";
             int attempts = 0;
 
             while (attempts < 3)
@@ -203,12 +203,30 @@ namespace E_CommerceWebsiteSystem1
                 Console.WriteLine("Too many invalid attempts. Returning to Main Menu...");
                 return;
             }
-            Console.Write("Enter Description: ");
+            Console.Write("Enter Description:   (Optional)");
             string description = Console.ReadLine();
 
             Console.Write("Enter Price: ");
             decimal price = decimal.Parse(Console.ReadLine());
 
+            attempts = 0;
+
+            while (attempts < 3)
+            {
+                Console.Write("Enter Price: ");
+
+                if (decimal.TryParse(Console.ReadLine(), out price) && price > 0)
+                    break;
+
+                attempts++;
+                Console.WriteLine($"Invalid price. Attempts left: {3 - attempts}");
+            }
+
+            if (attempts == 3)
+            {
+                Console.WriteLine("Too many invalid attempts. Returning to Main Menu...");
+                return;
+            }
             Console.Write("Enter Stock Quantity: ");
             int stockQuantity = int.Parse(Console.ReadLine());
 
