@@ -163,6 +163,47 @@ namespace E_CommerceWebsiteSystem1
             Console.WriteLine("\nUser registered successfully.");
             Console.WriteLine($"User ID: {newUser.UserId}");
         }
+
+        static void AddProduct()
+        {
+            Console.WriteLine("========== Add New Product ==========\n");
+
+            Console.Write("Enter Product Name: ");
+            string productName = Console.ReadLine();
+
+            Console.Write("Enter Description: ");
+            string description = Console.ReadLine();
+
+            Console.Write("Enter Price: ");
+            decimal price = decimal.Parse(Console.ReadLine());
+
+            Console.Write("Enter Stock Quantity: ");
+            int stockQuantity = int.Parse(Console.ReadLine());
+
+            Console.Write("Enter Image URL: ");
+            string imageUrl = Console.ReadLine();
+
+            Console.Write("Enter Category ID: ");
+            int categoryId = int.Parse(Console.ReadLine());
+
+            // Create the object here
+            Product product = new Product
+            {
+                ProductName = productName,
+                Description = description,
+                Price = price,
+                StockQuantity = stockQuantity,
+                ImageUrl = imageUrl,
+                CategoryId = categoryId,
+                CreatedAt = DateTime.Now,
+                IsAvailable = stockQuantity > 0
+            };
+
+            context.Products.Add(product);
+            context.SaveChanges();
+
+            Console.WriteLine("\nProduct added successfully.");
+        }
         static void Main(string[] args)
         {
             bool exit = false;
@@ -201,9 +242,9 @@ namespace E_CommerceWebsiteSystem1
                         RegisterUser();
                         break;
 
-                    //case 2:
-                    //    AddProduct();
-                    //    break;
+                    case 2:
+                        AddProduct();
+                        break;
 
                     //case 3:
                     //    PlaceOrder();
