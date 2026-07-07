@@ -19,13 +19,29 @@ namespace E_CommerceWebsiteSystem1
             while (attempts < 3)
             {
                 Console.Write("Enter Username: ");
-                username = Console.ReadLine();
+                username = Console.ReadLine()?.Trim();
 
-                if (!string.IsNullOrWhiteSpace(username))
-                    break;
+                // Check if empty
+                if (string.IsNullOrWhiteSpace(username))
+                {
+                    attempts++;
+                    Console.WriteLine($"Username cannot be empty. Attempts left: {3 - attempts}");
+                    continue;
+                }
 
-                attempts++;
-                Console.WriteLine($"Invalid Username! Attempts left: {3 - attempts}");
+                // Check if username already exists
+                User existingUser = context.Users
+                    .FirstOrDefault(u => u.Username == username);
+
+                if (existingUser != null)
+                {
+                    attempts++;
+                    Console.WriteLine($"Username already exists. Attempts left: {3 - attempts}");
+                    continue;
+                }
+
+                // Username is valid
+                break;
             }
 
             if (attempts == 3)
@@ -109,25 +125,25 @@ namespace E_CommerceWebsiteSystem1
             Console.Write("Enter Address: (optional)");
             string address = Console.ReadLine();
 
-            // Check if username already exists
-            User existingUser = context.Users
-                .FirstOrDefault(u => u.Username == username);
+            //// Check if username already exists
+            //User existingUser = context.Users
+            //    .FirstOrDefault(u => u.Username == username);
 
-            if (existingUser != null)
-            {
-                Console.WriteLine("\nUsername already exists.");
-                return;
-            }
+            //if (existingUser != null)
+            //{
+            //    Console.WriteLine("\nUsername already exists.");
+            //    return;
+            //}
 
             // Check if email already exists
-            existingUser = context.Users
-                .FirstOrDefault(u => u.Email == email);
+            //existingUser = context.Users
+            //    .FirstOrDefault(u => u.Email == email);
 
-            if (existingUser != null)
-            {
-                Console.WriteLine("\nEmail already exists.");
-                return;
-            }
+            //if (existingUser != null)
+            //{
+            //    Console.WriteLine("\nEmail already exists.");
+            //    return;
+            //}
 
             User newUser = new User
             {
