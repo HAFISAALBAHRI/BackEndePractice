@@ -8,6 +8,7 @@ namespace E_CommerceWebsiteSystem1
     internal class Program
     {
         static ECommerceContext context = new ECommerceContext();
+        //case 1 
         static void RegisterUser()
         {
             Console.WriteLine("========== Register New User ==========\n");
@@ -163,7 +164,7 @@ namespace E_CommerceWebsiteSystem1
             Console.WriteLine("\nUser registered successfully.");
             Console.WriteLine($"User ID: {newUser.UserId}");
         }
-
+        //case  2
         static void AddProduct()
         {
             Console.WriteLine("========== Add New Product ==========\n");
@@ -240,7 +241,7 @@ namespace E_CommerceWebsiteSystem1
 
             Console.WriteLine($"\nProduct '{product.ProductName}' added successfully to category '{category.CategoryName}'.");
         }
-
+        //case 3
         static void PlaceOrder()
         {
             Console.WriteLine("========== Place Order ==========\n");
@@ -312,7 +313,7 @@ namespace E_CommerceWebsiteSystem1
 
             Console.WriteLine($"\nOrder placed successfully! Order ID: {order.OrderId}, Total: {order.TotalAmount:C}");
         }
-
+        //case 4
         static void WriteReview()
         {
             Console.WriteLine("========== Write Product Review ==========\n");
@@ -374,7 +375,7 @@ namespace E_CommerceWebsiteSystem1
 
             Console.WriteLine($"\nReview ID {review.ReviewId} Review submitted successfully for product '{product.ProductName}' by user '{user.Username}'.");
         }
-
+        //case 7
         static void DeleteReview()
         {
             Console.WriteLine("========== Delete Review ==========\n");
