@@ -426,12 +426,13 @@ namespace E_CommerceWebsiteSystem1
                 Console.WriteLine("========================================");
                 Console.Write("Select option: ");
 
-                int option;
+                int option = int.Parse(Console.ReadLine());
 
-                while (!int.TryParse(Console.ReadLine(), out option) || option < 0 || option > 12)
-                {
-                    Console.Write("Invalid option. Please try again: ");
-                }
+
+                //while (!int.TryParse(Console.ReadLine(), out option) || option < 0 || option > 12)
+                //{
+                //    Console.Write("Invalid option. Please try again: ");
+                //}
 
                 switch (option)
                 {
