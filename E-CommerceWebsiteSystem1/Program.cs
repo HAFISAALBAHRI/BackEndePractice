@@ -14,7 +14,25 @@ namespace E_CommerceWebsiteSystem1
 
             Console.Write("Enter Username: ");
             string username = Console.ReadLine();
+            int attempts = 0;
 
+            while (attempts < 3)
+            {
+                Console.Write("Enter Username: ");
+                username = Console.ReadLine();
+
+                if (!string.IsNullOrWhiteSpace(username))
+                    break;
+
+                attempts++;
+                Console.WriteLine($"Invalid Username! Attempts left: {3 - attempts}");
+            }
+
+            if (attempts == 3)
+            {
+                Console.WriteLine("Too many invalid attempts. Returning to Main Menu...");
+                return;
+            }
             Console.Write("Enter Email: ");
             string email = Console.ReadLine();
 
