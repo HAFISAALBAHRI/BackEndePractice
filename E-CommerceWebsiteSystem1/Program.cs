@@ -375,6 +375,31 @@ namespace E_CommerceWebsiteSystem1
             Console.WriteLine($"\nReview submitted successfully for product '{product.ProductName}' by user '{user.Username}'.");
         }
 
+        static void DeleteReview()
+        {
+            Console.WriteLine("========== Delete Review ==========\n");
+
+            Console.Write("Enter Review ID: ");
+            int reviewId = int.Parse(Console.ReadLine());
+
+            // Step 1: Fetch the review
+            var review = context.Reviews.FirstOrDefault(r => r.ReviewId == reviewId);
+
+            if (review == null)
+            {
+                Console.WriteLine("Review not found.");
+                return;
+            }
+
+            // Step 2: Remove the review
+            context.Reviews.Remove(review);
+
+            // Step 3: Save changes
+            context.SaveChanges();
+
+            Console.WriteLine($"\nReview ID {reviewId} deleted successfully.");
+        }
+
         static void Main(string[] args)
         {
             bool exit = false;
@@ -433,9 +458,9 @@ namespace E_CommerceWebsiteSystem1
                     //    CancelOrder();
                     //    break;
 
-                    //case 7:
-                    //    DeleteReview();
-                    //    break;
+                    case 7:
+                        DeleteReview();
+                        break;
 
                     //case 8:
                     //    ViewAllProducts();
