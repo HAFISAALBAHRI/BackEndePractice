@@ -56,6 +56,25 @@ namespace E_CommerceWebsiteSystem1
             }
             Console.Write("Enter Password: ");
             string password = Console.ReadLine();
+            attempts = 0;
+
+            while (attempts < 3)
+            {
+                Console.Write("Enter Password: ");
+                password = Console.ReadLine();
+
+                if (!string.IsNullOrWhiteSpace(password) && password.Length >= 6)
+                    break;
+
+                attempts++;
+                Console.WriteLine($"Password must be at least 6 characters. Attempts left: {3 - attempts}");
+            }
+
+            if (attempts == 3)
+            {
+                Console.WriteLine("Too many invalid attempts. Returning to Main Menu...");
+                return;
+            }
 
             Console.Write("Enter Full Name: ");
             string fullName = Console.ReadLine();
