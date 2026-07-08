@@ -609,7 +609,24 @@ namespace E_CommerceWebsiteSystem1
                                     .ThenInclude(o => o.OrderProducts)   // bridge entity
                                     .ThenInclude(op => op.Product)   // product details
                                     .FirstOrDefault(u => u.UserId == userId);
+           
+            foreach (var order in user.Orders)//Loop through orders
+            {
+                Console.WriteLine($"\nOrder ID: {order.OrderId}");
+                Console.WriteLine($"Date: {order.OrderDate}");
+                Console.WriteLine($"Status: {order.status}");
+                Console.WriteLine($"Total: {order.TotalAmount:C}");
+                Console.WriteLine("Products:");
 
+                
+                foreach (var op in order.OrderProducts)// Loop through order items
+                {
+                    Console.WriteLine($"   Product: {op.Product.ProductName}");
+                    Console.WriteLine($"   Quantity: {op.Quantity}");
+                    Console.WriteLine($"   Unit Price: {op.UnitPrice:C}");
+                    Console.WriteLine("--------------------------------------");
+                }
+            }
 
         }
 
