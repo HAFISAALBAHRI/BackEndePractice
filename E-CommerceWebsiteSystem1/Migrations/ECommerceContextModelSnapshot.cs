@@ -18,6 +18,9 @@ namespace E_CommerceWebsiteSystem1.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "10.0.9")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -253,7 +256,7 @@ namespace E_CommerceWebsiteSystem1.Migrations
             modelBuilder.Entity("E_CommerceWebsiteSystem1.Models.OrderProduct", b =>
                 {
                     b.HasOne("E_CommerceWebsiteSystem1.Models.Order", "Order")
-                        .WithMany()
+                        .WithMany("OrderProducts")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -302,6 +305,11 @@ namespace E_CommerceWebsiteSystem1.Migrations
             modelBuilder.Entity("E_CommerceWebsiteSystem1.Models.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("E_CommerceWebsiteSystem1.Models.Order", b =>
+                {
+                    b.Navigation("OrderProducts");
                 });
 
             modelBuilder.Entity("E_CommerceWebsiteSystem1.Models.Product", b =>
