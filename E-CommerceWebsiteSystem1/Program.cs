@@ -599,7 +599,18 @@ namespace E_CommerceWebsiteSystem1
                 Console.WriteLine("--------------------------------------");
             }
         }
-        
+        //case 11 
+        //static void ViewOrderHistory()
+        //{
+        //    Console.WriteLine("========== Order History ==========\n");
+        //    Console.Write("Enter User ID: ");
+        //    int userId = int.Parse(Console.ReadLine());
+        //    var user = context.Users
+        //.Include(u => u.Orders)
+        //    .ThenInclude(o => o.OrderProductId)   // bridge entity
+        //        .ThenInclude(op => op.Product)   // product details
+        //.FirstOrDefault(u => u.UserId == userId);
+        //}
 
         static void Main(string[] args)
         {
@@ -676,9 +687,9 @@ namespace E_CommerceWebsiteSystem1
                         GetCategoryWithProducts();
                         break;
 
-                    //case 11:
-                    //    ViewOrderHistory();
-                    //    break;
+                    case 11:
+                        ViewOrderHistory();
+                        break;
 
                     //case 12:
                     //    ProductSummaryReport();
