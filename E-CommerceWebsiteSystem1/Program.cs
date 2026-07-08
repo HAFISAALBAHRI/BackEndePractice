@@ -1,6 +1,6 @@
 ﻿using E_CommerceWebsiteSystem1.Models;
 using Microsoft.EntityFrameworkCore;
-
+using System.Linq;
 
 namespace E_CommerceWebsiteSystem1
 {
@@ -523,7 +523,59 @@ namespace E_CommerceWebsiteSystem1
                 Console.WriteLine("--------------------------------------");
             }
         }
+        //case 9 
+        static void FilterProducts()
+        {
+            Console.WriteLine("========== Filter Products ==========\n");
+            Console.Write(" Enter Categry ID :");
+            int categoryId = int.Parse(Console.ReadLine());
+            // Step 2: Ask for price range
+            Console.Write("Enter Minimum Price : ");
+            decimal minPrice = decimal.Parse(Console.ReadLine());
+            // string minInput = "";
+            //Console.Write("Enter Minimum Price : ");
+            //minInput = Console.ReadLine();
+            // //decimal.Parse(minInput);
+            //  string minPrice = decimal.Parse(minInput);
+            Console.Write("Enter Maximum Price :");
+            decimal maxPrice = decimal.Parse(Console.ReadLine());
+            //Console.Write("Enter Maximum Price : ");
+            //string maxInput = Console.ReadLine();
+            ////decimal.Parse(maxInput);
+            //maxPrice = decimal.Parse(maxInput);
 
+            //var products = context.Products.Where(p => p.CategoryId == categoryId)
+            //                                .ToList();
+
+            //if (minPrice.HasValue)
+            //    products = products.Where(p => p.Price >= minPrice.Value).ToList();
+
+            //if (maxPrice.HasValue)
+            //    products = products.Where(p => p.Price <= maxPrice.Value).ToList();
+            var products = context.Products.Where(p => p.CategoryId == categoryId &&
+                                                       p.Price >= minPrice &&
+                                                       p.Price <= maxPrice)
+                                                       .OrderBy(p => p.Price)
+                                                       .ToList();
+            // Step 4: Display results
+            if (!products.Any())
+            {
+                Console.WriteLine("No products found for the selected filters.");
+                return;
+            }
+
+            Console.WriteLine("\nFiltered Products:");
+            foreach (var p in products)
+            {
+                Console.WriteLine($"ID: {p.ProductId}");
+                Console.WriteLine($"Name: {p.ProductName}");
+                Console.WriteLine($"Price: {p.Price:C}");
+                Console.WriteLine($"Stock: {p.StockQuantity}");
+                Console.WriteLine($"Available: {(p.IsAvailable ? "Yes" : "No")}");
+                Console.WriteLine("--------------------------------------");
+            }
+        }
+      
         static void Main(string[] args)
         {
             bool exit = false;
@@ -591,9 +643,9 @@ namespace E_CommerceWebsiteSystem1
                         ViewAllProducts();
                         break;
 
-                    //case 9:
-                    //    FilterProducts();
-                    //    break;
+                    case 9:
+                        FilterProducts();
+                        break;
 
                     //case 10:
                     //    GetCategoryWithProducts();
