@@ -29,8 +29,8 @@ namespace E_CommerceWebsiteSystem1.Models
 
         [Required]
         public DateTime ReviewDate { get; set; } // system generated
-        public User? User { get; set; } // relationship ==> many reviews are written by one user
+        public virtual User? User { get; set; } // relationship ==> many reviews are written by one user
 
-        public Product? Product { get; set; } // relationship ==> many reviews belong to one product
+        public virtual Product? Product { get; set; } // relationship ==> many reviews belong to one product
     }
 }
