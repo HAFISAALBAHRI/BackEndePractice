@@ -632,7 +632,50 @@ namespace E_CommerceWebsiteSystem1
         //case 12
         static void ProductSummaryReport()
         {
-            
+            Console.WriteLine("========== Product Summary Report ==========\n");
+
+            var summary = context.Products
+                .Select(p => new
+                {
+                    ProductName = p.ProductName,
+                    CategoryName = p.Category.CategoryName,
+                    ReviewCount = p.Reviews.Count(),
+                    AvgRating = p.Reviews.Any() ? p.Reviews.Average(r => r.Rating) : 0,
+                    Stock = p.StockQuantity
+                })
+                .ToList();
+
+            foreach (var item in summary)
+            {
+                Console.WriteLine($"Product: {item.ProductName}");
+                Console.WriteLine($"Category: {item.CategoryName}");
+                Console.WriteLine($"Reviews: {item.ReviewCount}, Avg Rating: {item.AvgRating:F2}");
+                Console.WriteLine($"Stock: {item.Stock}");
+                Console.WriteLine("--------------------------------------");
+            }
+        }
+
+        static void LazyLoadingDemo()
+        {
+            Console.WriteLine("========== Lazy Loading Demo ==========\n");
+
+            // Step 1: Fetch a single product WITHOUT Include
+            var product = context.Products.FirstOrDefault();
+
+            if (product == null)
+            {
+                Console.WriteLine("No products found.");
+                return;
+            }
+
+            Console.WriteLine($"Product: {product.ProductName}");
+
+            // Step 2: Access Reviews navigation property
+            // ⚠️ At this exact line, EF Core fires a SECOND query to load Reviews
+            foreach (var review in product.Reviews)
+            {
+                Console.WriteLine($"   Rating: {review.Rating}, Comment: {review.Comment}");
+            }
         }
 
         static void Main(string[] args)
@@ -716,6 +759,7 @@ namespace E_CommerceWebsiteSystem1
 
                     case 12:
                         ProductSummaryReport();
+                        LazyLoadingDemo(); // optional demo
                         break;
 
                     case 0:
