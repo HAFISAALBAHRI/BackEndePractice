@@ -459,7 +459,7 @@ namespace E_CommerceWebsiteSystem1
                 var product = context.Products.FirstOrDefault(p => p.ProductId == op.ProductId);
                 if (product != null)
                 {
-                    product.StockQuantity += op.Quantity;
+                    product.StockQuantity += op.Quantity;  // StockQuantity = class product ,, Quantity= class order 
                     product.IsAvailable = product.StockQuantity > 0;
                 }
             }
@@ -629,6 +629,11 @@ namespace E_CommerceWebsiteSystem1
             }
 
         }
+        //case 12
+        static void ProductSummaryReport()
+        {
+            
+        }
 
         static void Main(string[] args)
         {
@@ -709,9 +714,9 @@ namespace E_CommerceWebsiteSystem1
                         ViewOrderHistory();
                         break;
 
-                    //case 12:
-                    //    ProductSummaryReport();
-                    //    break;
+                    case 12:
+                        ProductSummaryReport();
+                        break;
 
                     case 0:
                         exit = true;
