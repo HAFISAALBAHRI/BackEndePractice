@@ -575,7 +575,32 @@ namespace E_CommerceWebsiteSystem1
                 Console.WriteLine("--------------------------------------");
             }
         }
-      
+        //case 10
+        static void GetCategoryWithProducts()
+        {
+            Console.WriteLine("========== Category with Products ==========\n");
+            Console.Write(" Enter Categry ID :");
+            int categoryId = int.Parse(Console.ReadLine());
+            var category = context.Categories.Include(c => c.Products)
+                                             .FirstOrDefault(c => c.CategoryId == categoryId);
+            // Display category details 
+            Console.WriteLine($"\nCategory: {category.CategoryName}");
+            Console.WriteLine($"Description: {category.Description}");
+            Console.WriteLine("--------------------------------------");
+            // Display Products details 
+            Console.WriteLine("Products:");
+            foreach (var p in category.Products)
+            {
+                Console.WriteLine($"ID: {p.ProductId}");
+                Console.WriteLine($"Name: {p.ProductName}");
+                Console.WriteLine($"Price: {p.Price:C}");
+                Console.WriteLine($"Stock: {p.StockQuantity}");
+                Console.WriteLine($"Available: {(p.IsAvailable ? "Yes" : "No")}");
+                Console.WriteLine("--------------------------------------");
+            }
+        }
+        
+
         static void Main(string[] args)
         {
             bool exit = false;
@@ -647,9 +672,9 @@ namespace E_CommerceWebsiteSystem1
                         FilterProducts();
                         break;
 
-                    //case 10:
-                    //    GetCategoryWithProducts();
-                    //    break;
+                    case 10:
+                        GetCategoryWithProducts();
+                        break;
 
                     //case 11:
                     //    ViewOrderHistory();
