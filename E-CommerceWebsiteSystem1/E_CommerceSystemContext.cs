@@ -18,9 +18,18 @@ namespace E_CommerceWebsiteSystem1
 
         public DbSet<Review> Reviews { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        //protected override void OnConfiguring(DbContextOptionsBuilder options)
+        //{
+        //    options.UseSqlServer("Server=CODELINE;Database=ECommerceDB;Trusted_Connection=True;TrustServerCertificate=True;");
+        //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            options.UseSqlServer("Server=CODELINE;Database=ECommerceDB;Trusted_Connection=True;TrustServerCertificate=True;");
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder
+                    .UseSqlServer("Server=CODELINE;Database=ECommerceDB;Trusted_Connection=True;TrustServerCertificate=True;")
+                    .UseLazyLoadingProxies(); // ✅ Add this line
+            }
         }
     }
 }
