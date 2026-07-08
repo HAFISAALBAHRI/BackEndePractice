@@ -21,6 +21,6 @@ namespace E_CommerceWebsiteSystem1.Models
 
         [MaxLength(300)]
         public string? ImageUrl { get; set; } // user input, optional
-        public ICollection<Product> Products { get; set; } = new List<Product>(); // relationship ==> one category has many products
+        public virtual ICollection<Product> Products { get; set; } = new List<Product>(); // relationship ==> one category has many products
     }
 }
