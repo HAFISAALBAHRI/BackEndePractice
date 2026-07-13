@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace E_CommerceWebsiteSystem1.Models
 {
-    internal class Product
+    public class Product
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -40,9 +40,9 @@ namespace E_CommerceWebsiteSystem1.Models
 
         public bool IsAvailable { get; set; } = true; // default value
 
-        public Category? Category { get; set; } // relationship ==> many products belong to one category
+        public virtual Category? Category { get; set; } // relationship ==> many products belong to one category
 
-        public ICollection<Review> Reviews { get; set; } = new List<Review>(); // relationship ==> one product has many reviews
+        public virtual ICollection<Review> Reviews { get; set; } = new List<Review>(); // relationship ==> one product has many reviews
         public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
     }
 }

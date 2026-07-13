@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace E_CommerceWebsiteSystem1.Models
 {
-    internal class Order
+    public class Order
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -14,7 +14,7 @@ namespace E_CommerceWebsiteSystem1.Models
         [Required]
         [ForeignKey("User")]
         public int UserId { get; set; } // foreign key
-        public User? User { get; set; }
+        public virtual User? User { get; set; }
         [Required]
         public DateTime OrderDate { get; set; } // system generated
 
@@ -36,6 +36,7 @@ namespace E_CommerceWebsiteSystem1.Models
         public string PaymentMethod { get; set; } = string.Empty; // from list
 
         // relationship ==> many orders belong to one user
-        
+        public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
+
     }
 }

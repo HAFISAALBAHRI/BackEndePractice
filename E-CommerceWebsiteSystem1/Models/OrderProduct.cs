@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace E_CommerceWebsiteSystem1.Models
 {
-    internal class OrderProduct
+    public class OrderProduct
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -15,18 +15,20 @@ namespace E_CommerceWebsiteSystem1.Models
         [Required]
         [ForeignKey("Order")]
         public int OrderId { get; set; } // foreign key
-        public Order? Order { get; set; } // relationship ==> many orderproduct belong to one order
+        public virtual Order? Order { get; set; } // relationship ==> many orderproduct belong to one order
         
         [Required]
         [ForeignKey("Product")]
         public int ProductId { get; set; } // foreign key
-        public Product? Product { get; set; } // relationship ==> many orderproduct belong to one product
+        public virtual Product? Product { get; set; } // relationship ==> many orderproduct belong to one product
         [Required]
         [Range(1, 999)]
         public int Quantity { get; set; } // user input
                                           //relations
-        
 
-       
+        [Required]
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal UnitPrice { get; set; } // price at time of order
+
     }
 }
